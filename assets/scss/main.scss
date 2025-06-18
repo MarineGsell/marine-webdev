@@ -7,6 +7,40 @@ $text-color: #33272a;
 $text-color-second: #594a4e;
 $white: #ffffff;
 
+// Heigth
+$logo-height: 60px;
+$icon-height-nav: 40px;
+$icon-height: 32px;
+
+// Fleurs
+$flower-height-desktop: 200px;
+$flower-height-tablette: 160px;
+$flower-height-mobile: 80px;
+
+$margin-flower-desktop: 48px;
+$margin-flower-tablette: 36px;
+$margin-flower-mobile: 24px;
+@mixin flower($color) {
+    position: absolute;
+    color: $color;
+    height: $flower-height-desktop;
+    width: auto;
+    margin: $margin-flower-desktop;
+    transition: all 0.8s ease;
+    &:hover {
+        transform: rotateZ(180deg)
+    }
+    @include responsive-tablette {
+        height: $flower-height-tablette;
+        margin: $margin-flower-tablette;
+    }
+    @include responsive-mobile {
+        height: $flower-height-mobile;
+        margin: $margin-flower-mobile;
+    }
+};
+
+
 // Fonts
 $title-font: "Pacifico", cursive;
 $text-font: "Poppins", sans-serif;
@@ -24,6 +58,25 @@ $text-font: "Poppins", sans-serif;
         font-size: 28px;
     }
 }
+@mixin font-h1-anim {
+    font-family: $text-font;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 36px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $text-color-second;
+    text-align: center;
+    @include responsive-tablette {
+        font-size: 22px;
+        line-height: 33px;
+    }
+    @include responsive-mobile {
+        font-size: 14px;
+        line-height: 30px;
+    }
+}
+
 @mixin font-h2 {
     font-family: $title-font;
     font-size: 32px;
@@ -51,12 +104,12 @@ $text-font: "Poppins", sans-serif;
         font-size: 20px;
     }
 }
-@mixin font-p {
+@mixin font-p ($color){
     font-family: $text-font;
     font-size: 18px;
     font-weight: 300;
     line-height: 1.6;
-    color: $text-color;
+    color: $color;
     letter-spacing: 0.3px;
     @include responsive-tablette {
         font-size: 16px;
@@ -76,8 +129,16 @@ $text-font: "Poppins", sans-serif;
     letter-spacing: 0.8px;
     text-decoration: none;
     text-transform: uppercase;
+    transition: $transition;
     @include responsive-tablette {
         font-size: 14px;
+    }
+    &:hover {
+        color: $main-color;
+        transform: translateY(-2px);
+    }
+    &:active {
+        color: $main-color;
     }
 }
 @mixin font-button($color) {
@@ -116,6 +177,13 @@ $gap-third-desktop: 24px;
 $gap-third-tablette: 20px;
 $gap-third-mobile: 16px;
 
+$gap-list: 16px;
+$gap-list-mobile: 8px;
+
+$padding-button: 16px 32px;
+$padding-card: 32px;
+$padding-nav: 16px;
+
 @mixin padding-div {
     max-width: 1200px;
     margin: auto;
@@ -136,32 +204,17 @@ $gap-third-mobile: 16px;
     align-items: $align;
     gap: $gap;
 }
-
-// Buttons
-@mixin button {
-    background-color: $main-color;
-    color: $text-color;
-    border-radius: 25px;
-    padding: 16px 32px;
-    transition: $transition;
-    @include font-button;
-    @include responsive-mobile {
-        padding: 12px 24px;
-    }
-    &:hover {
-        background-color: lighten($color: $main-color, $amount: 10%);
-        transform: translateY(-2px);
-    }
-    &:focus {
-        outline: $main-color;
-    }
+@mixin box($justify) {
+    display: flex;
+    align-items: center;
+    justify-content: $justify;
 }
 
 // Cards
 @mixin card($bg) {
     background-color: $bg;
     border-radius: 12px;
-    padding: 32px;
+    padding: $padding-card;
     box-shadow: 0 4px 20px rgba(51, 39, 42, 0.08);
     transition: $transition;
     @include responsive-mobile {
@@ -195,11 +248,66 @@ $gap-third-mobile: 16px;
 // Transition
 $transition: all 0.3s ease-in-out;
 
+// Keyframes
+@keyframes title-anim-desktop {
+    0% {
+        margin-top: 0;
+    }
+    25% {
+        margin-top: -36px;
+    }
+    50% {
+        margin-top: -72px;
+    }
+    75% {
+        margin-top: -36px;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+@keyframes title-anim-tablette {
+    0% {
+        margin-top: 0;
+    }
+    25% {
+        margin-top: -33px;
+    }
+    50% {
+        margin-top: -66px;
+    }
+    75% {
+        margin-top: -33px;
+    }
+    100% {
+        margin-top: 0;
+    }
+
+}
+@keyframes title-anim-mobile {
+    0% {
+        margin-top: 0;
+    }
+    25% {
+        margin-top: -30px;
+    }
+    50% {
+        margin-top: -60px;
+    }
+    75% {
+        margin-top: -30px;
+    }
+    100% {
+        margin-top: 0;
+    }
+
+}
+
 // Responsive
 $breakpoint-mobile: 767px;
 $breakpoint-tablette: 1024px;
 @mixin responsive-desktop {
-    @media (min-width: $breakpoint-tablette) { 
+    @media (min-width: #{$breakpoint-tablette + 1px}) { 
         @content;
     }
 }
