@@ -2,12 +2,12 @@
     <section class="header-hero">
         <SvgFleur class="header-hero__left"/>
         <div class="header-hero__content">
-            <SvgLogo class="header-hero__content__logo"/>
             <div class="header-hero__content__title">
+                <SvgLogo class="header-hero__content__title__logo"/>
                 <h1 class="header-hero__content__title__line">Créatrice d'expérience web sur mesure</h1>
             </div>
+            <ButtonsMain class="header-hero__content__button">Contactez moi</ButtonsMain>
         </div>
-        <ButtonsMain class="header-hero__content__button">Contactez moi</ButtonsMain>
         <SvgFleur class="header-hero__right"/>
     </section>
 </template>
@@ -15,57 +15,66 @@
 .header-hero {
     background-color: $bg-color;
     height: calc(100vh - 72px);
-    @include flex(column, center, center, $gap-main-desktop);
+    padding-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
     @include responsive-tablette {
-        @include flex(column, center, center, $gap-main-tablette);
+        height: 80vh;
+        grid-template-columns: repeat(3, 1fr); 
+        grid-template-rows: repeat(4, 1fr);
     }
     @include responsive-mobile {
-        @include flex(column, center, center, $gap-main-mobile);
+        height: 70vh;
     }
     &__left {
-        top: 72px;
-        left: 0;
-        @include flower($second-color)
-    }
-    &__content {
-        @include flex(column, center, center, $gap-second-desktop);
-        @include responsive-tablette {
-            @include flex(column, center, center, $gap-second-tablette);
-        }
-        @include responsive-mobile {
-            @include flex(column, center, center, $gap-second-mobile);
-        }
-        &__logo {
-            height: 200px;
-            @include responsive-tablette {
-            }
-            @include responsive-mobile {
-                height: 96px;
-            }
-        }
-        &__title {
-            height: 36px;
-            overflow: hidden;
-            @include responsive-tablette {
-                height: 33px;
-            }
-            @include responsive-mobile {
-                height: 30px;
-            }
-            &__line {
-                @include font-h1-anim;
-            }
-        }
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: center;
+        align-self: center;
+        @include flower($second-color);
     }
     &__right {
-        right: 0;
-        top: calc(100vh - $flower-height-desktop - $margin-flower-desktop * 2);
+        grid-row: 7;
+        grid-column: 5;
+        justify-self: center;
+        align-self: center;
         @include flower($second-color);
         @include responsive-tablette {
-            top: calc(100vh - $flower-height-tablette - $margin-flower-tablette * 2);
+            grid-row: 4;    
+            grid-column: 3; 
+        }
+    }
+    &__content {
+        // border: 2px solid red;
+        grid-area: 2 / 2 / 7 / 5;
+        @include flex(column, center, center, $gap-main-desktop);
+        @include responsive-tablette {
+            grid-area: 2 / 1 / 4 / 4;
+            @include flex(column, center, center, $gap-main-tablette);
         }
         @include responsive-mobile {
-            top: calc(100vh - $flower-height-mobile - $margin-flower-mobile * 2);
+            @include flex(column, center, center, $gap-main-mobile);
+        }
+        &__title {
+            @include flex(column, center, center, $gap-third-desktop);
+            @include responsive-tablette {
+                @include flex(column, center, center, $gap-third-tablette);
+            }
+            @include responsive-mobile {
+                @include flex(column, center, center, $gap-third-mobile);
+            }
+            &__logo {
+                height: 200px;
+                @include responsive-tablette {
+                }
+                @include responsive-mobile {
+                    height: 96px;
+                }
+            }
+            &__line {
+                @include font-subtitle;
+            }
         }
     }
 }

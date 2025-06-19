@@ -6,6 +6,9 @@ $third-color: #c3f0ca;
 $text-color: #33272a;
 $text-color-second: #594a4e;
 $white: #ffffff;
+$flower-orange: #ffd4b3;
+$flower-blue: #b3d9ff;
+$flower-purple: #dda0dd;
 
 // Heigth
 $logo-height: 60px;
@@ -17,11 +20,24 @@ $flower-height-desktop: 200px;
 $flower-height-tablette: 160px;
 $flower-height-mobile: 80px;
 
+$flower-big-desktop: 200px;
+$flower-big-tablette: 160px;
+$flower-big-mobile: 80px;
+
+$flower-medium-desktop: 140px;
+$flower-medium-tablette: 110px;
+$flower-medium-mobile: 56px;
+
+$flower-little-desktop: 80px;
+$flower-little-tablette: 60px;
+$flower-little-mobile: 32px;
+
+
 $margin-flower-desktop: 48px;
 $margin-flower-tablette: 36px;
 $margin-flower-mobile: 24px;
+
 @mixin flower($color) {
-    position: absolute;
     color: $color;
     height: $flower-height-desktop;
     width: auto;
@@ -39,7 +55,22 @@ $margin-flower-mobile: 24px;
         margin: $margin-flower-mobile;
     }
 };
+@mixin flower-style($row, $column, $justify, $align, $x, $y, $color, $size-desktop) {
+    // Position
+    grid-row: $row;
+    grid-column: $column;
+    justify-self: $justify;
+    align-self: $align;
+    transform: translateX($x) translateY($y);
 
+    // Style
+    height: $size-desktop;
+    color: $color;
+    transition: all 0.8s ease;
+    &:hover {
+        transform: translateX($x) translateY($y) rotateZ(180deg)
+    }
+}
 
 // Fonts
 $title-font: "Pacifico", cursive;
@@ -58,7 +89,7 @@ $text-font: "Poppins", sans-serif;
         font-size: 28px;
     }
 }
-@mixin font-h1-anim {
+@mixin font-subtitle {
     font-family: $text-font;
     font-size: 24px;
     font-weight: 300;
@@ -154,7 +185,7 @@ $text-font: "Poppins", sans-serif;
         font-size: 14px;
     }
 }
-@mixin font-subtitle {
+@mixin font-subtitle2 {
     font-family: $text-font;
     font-size: 14px;
     font-weight: 300;
@@ -189,10 +220,10 @@ $padding-nav: 16px;
     margin: auto;
     @include responsive-tablette {
         width: 100%;
-        padding: 20px 0;
+        padding: 0 20px;
     }
     @include responsive-mobile {
-        padding: 16px 0;
+        padding: 0 16px;
     }
 }
 

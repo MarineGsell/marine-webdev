@@ -1,3 +1,4 @@
 <template>
     <HeaderHeroMain />
+    <FlowerSection />
 </template>
