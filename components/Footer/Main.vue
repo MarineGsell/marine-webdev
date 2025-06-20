@@ -62,7 +62,7 @@
             @include flex(column, center, start, $gap-second-mobile)
         }
         &__title {
-            @include font-h2;
+            @include font-h2($text-color);
         }
         &__info {
             @include flex(column, center, start, $gap-third-desktop);

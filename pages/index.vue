@@ -1,4 +1,5 @@
 <template>
     <HeaderHeroMain />
-    <FlowerSection />
+    <About />
+    <!-- <Flowers /> -->
 </template>
