@@ -302,14 +302,20 @@ $breakpoint-tablette: 1024px;
         @content;
     }
 }
+@mixin responsive-desktop-tablette {
+    @media (min-width: #{$breakpoint-mobile + 1px}) { 
+        @content;
+    }
+}
 @mixin responsive-tablette {
     @media (max-width: $breakpoint-tablette) { 
         @content;
     }
 }
 @mixin responsive-mobile {
-    @media (max-width: $breakpoint-mobile) { 
+    @media (min-width: 320px) and (max-width: $breakpoint-mobile) { 
         @content;
     }
 }
+
 

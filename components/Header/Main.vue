@@ -3,7 +3,8 @@
 <template>
     <header class="header">
         <div class="header__logo">
-            <SvgLogo class="header__logo__img"/>
+            <SvgLogo class="header__logo__big"/>
+            <SvgLogoLittle class="header__logo__little"/>
         </div>
         <div class="header__nav">
             <HeaderHamburger class="header__nav__hamburger"/>
@@ -27,9 +28,19 @@
     align-items: center;
     &__logo {
         @include box(left);
-        &__img {
+        &__big {
             height: $logo-height;
             width: auto;
+            @include responsive-mobile {
+                display: none
+            }
+        }
+        &__little {
+            height: $logo-height;
+            width: auto;
+            @include responsive-desktop-tablette {
+                display: none;
+            }
         }
     }
     &__nav {
