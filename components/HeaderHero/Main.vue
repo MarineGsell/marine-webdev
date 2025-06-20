@@ -21,17 +21,14 @@
         width: 100%;
         max-width: 1440px;
         margin: auto;
-        height: calc(100vh - 72px);
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(7, 1fr);
         @include responsive-tablette {
-            // height: 80vh;
             grid-template-columns: repeat(3, 1fr); 
             grid-template-rows: repeat(4, 1fr);
         }
         @include responsive-mobile {
-            // height: 70vh;
         }
         &__left {
             grid-row: 1;
