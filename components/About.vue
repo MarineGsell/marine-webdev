@@ -1,9 +1,9 @@
 <script setup>
 const texts = [
     'Marine !',
-    'dev fullstack junior ...',
+    'développeuse fullstack junior ...',
     'créatrice d\'expériences web ...',
-    'dév créative ...'
+    'développeuse créative ...'
 ]
 
 const displayedText = ref('')
@@ -84,6 +84,7 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .about {
     background-color: $bg-color;
+    @include padding-top-section;
     &__content {
         @include padding-div;
         @include flex(row, center, center, $gap-second-desktop);
@@ -111,12 +112,6 @@ onUnmounted(() => {
                 }
                 &__line2 {
                     height: 60px;
-                    @include responsive-tablette {
-                        height: 52px;
-                    }
-                    @include responsive-mobile {
-                        height: 84px;
-                    }
                     &__text {
                         @include font-h2($text-color);
                         &__typewriter {

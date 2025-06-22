@@ -36,7 +36,7 @@
 <style lang="scss" scoped>
 .footer {
     background-color: $bg-color;
-    padding: 72px 0;
+    @include padding-top-section;
     @include flex(row, center, center, $gap-main-desktop);
     @include responsive-tablette {
         @include flex(row, center, center, $gap-main-tablette)

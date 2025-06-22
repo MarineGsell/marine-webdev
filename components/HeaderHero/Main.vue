@@ -21,6 +21,7 @@
         width: 100%;
         max-width: 1440px;
         margin: auto;
+        max-height: calc(100vh - 72px);
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(7, 1fr);
@@ -50,13 +51,13 @@
         }
         &__content {
             grid-area: 2 / 2 / 7 / 5;
-            @include flex(column, center, center, $gap-main-desktop);
+            @include flex(column, center, center, $gap-second-desktop);
             @include responsive-tablette {
                 grid-area: 2 / 1 / 4 / 4;
-                @include flex(column, center, center, $gap-main-tablette);
+                @include flex(column, center, center, $gap-second-tablette);
             }
             @include responsive-mobile {
-                @include flex(column, center, center, $gap-main-mobile);
+                @include flex(column, center, center, $gap-second-mobile);
             }
             &__title {
                 @include flex(column, center, center, $gap-third-desktop);
