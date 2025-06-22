@@ -35,13 +35,13 @@ const props = defineProps({
         <NuxtImg :src="imgSrc" :alt="imgAlt" class="card__img"/>
         <h3 class="card__title">{{ title }}</h3>
         <ul class="card__content">
-            <li class="card__content__item">{{ category }}</li>
-            <li class="card__content__item">{{ techno }}</li>
+            <li class="card__content__item">Catérgorie : {{ category }}</li>
+            <li class="card__content__item">Technologie : {{ techno }}</li>
             <li class="card__content__item">
-                <NuxtLink class="card__content__item__link" :to="repo">{{ repo }}</NuxtLink>
+                <NuxtLink class="card__content__item__link" :to="repo" target="_blank">Lien Github</NuxtLink>
             </li>            
-            <li class="card__content__item">
-                <NuxtLink class="card__content__item__link" :to="link">{{ link }}</NuxtLink>
+            <li class="card__content__item" v-if="link !== ''">
+                <NuxtLink class="card__content__item__link" :to="link" target="_blank">Lien du site</NuxtLink>
             </li>            
         </ul>
     </div>
@@ -70,16 +70,21 @@ const props = defineProps({
         }
     }
     &__title {
+        text-align: center;
         @include font-h3;
     }
     &__content {
         list-style: none;
-        @include flex(column, start, center, $gap-list);
+        @include flex(column, center, start, $gap-list);
         &__item {
+            text-align: start;
             @include font-p($text-color);
             &__link {
                 text-decoration: none;
-                @include font-p($text-color);            
+                @include font-p($text-color); 
+                &:hover {
+                    color: $main-color;
+                }           
             }
         }
     }

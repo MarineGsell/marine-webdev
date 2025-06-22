@@ -14,6 +14,21 @@ $flower-purple: #dda0dd;
 $logo-height: 60px;
 $icon-height-nav: 40px;
 $icon-height: 32px;
+@mixin picture {
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    object-fit: cover;
+    object-position: center;
+    @include responsive-tablette {
+        height: 56px;
+        width: 56px;
+    }
+    @include responsive-mobile {
+        height: 48px;
+        width: 48px;
+    }
+}
 
 // Fleurs
 $flower-height-desktop: 200px;
