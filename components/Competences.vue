@@ -49,7 +49,6 @@ const outils = competences.filter(competence => competence.categorie === "Outils
 <style lang="scss" scoped>
 .competences {
     background-color: $bg-color;
-    padding-bottom: $gap-main-desktop;
     @include padding-top-section;
     @include responsive-tablette {
         padding-bottom: $gap-main-tablette;    

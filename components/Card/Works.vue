@@ -12,19 +12,15 @@ const props = defineProps({
         type: String,
         required: true
     },
-    category: {
-        type: String,
-        required: true
-    },
-    techno: {
-        type: String,
-        required: true
-    },
     repo: {
         type: String,
         required: true
     },
     link: {
+        type: String,
+        default: ''
+    }, 
+    content: {
         type: String,
         default: ''
     }
@@ -34,28 +30,44 @@ const props = defineProps({
     <div class="card">
         <NuxtImg :src="imgSrc" :alt="imgAlt" class="card__img"/>
         <h3 class="card__title">{{ title }}</h3>
-        <ul class="card__content">
-            <li class="card__content__item">Catérgorie : {{ category }}</li>
-            <li class="card__content__item">Technologie : {{ techno }}</li>
-            <li class="card__content__item">
-                <NuxtLink class="card__content__item__link" :to="repo" target="_blank">Lien Github</NuxtLink>
-            </li>            
-            <li class="card__content__item" v-if="link !== ''">
-                <NuxtLink class="card__content__item__link" :to="link" target="_blank">Lien du site</NuxtLink>
-            </li>            
-        </ul>
+        <div class="card__content">
+            <ul class="card__content__description">
+                <li class="card__content__description__item">{{ content }}</li>
+            </ul>
+            <ul class="card__content__link">
+                <li class="card__content__link__item">
+                    <NuxtLink class="card__content__link__item__link" :to="repo" target="_blank">
+                        <SvgGithub class="card__content__link__item__link__icon"/>
+                    </NuxtLink>
+                </li>            
+                <li class="card__content__link__item" v-if="link !== ''">
+                    <NuxtLink class="card__content__link__item__link" :to="link" target="_blank">
+                        <SvgWeb class="card__content__link__item__link__icon"/>
+                    </NuxtLink>
+                </li>            
+            </ul>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
 .card {
     width: 100%;
+    transition: $transition;
+    height: 400px;
+    &:hover {
+        height: 560px;
+        .card__content__description {
+            opacity: 1;
+            height: 160px;
+        }
+    }
     @include card($bg-color);
-    @include flex(column, start, start, $gap-third-desktop);
+    @include flex(column, start, center, $gap-third-desktop);
     @include responsive-tablette {
-        @include flex(column, start, start, $gap-third-tablette);        
+        @include flex(column, start, center, $gap-third-tablette);        
     }
     @include responsive-mobile {
-        @include flex(column, start, start, $gap-third-mobile);        
+        @include flex(column, start, center, $gap-third-mobile);        
     }
     &__img {
         width: 100%;
@@ -68,23 +80,38 @@ const props = defineProps({
         @include responsive-mobile {
             height: 160px;
         }
+        &__hover {
+            display: none;
+        }
     }
     &__title {
         text-align: center;
         @include font-h3;
     }
     &__content {
-        list-style: none;
-        @include flex(column, center, start, $gap-list);
-        &__item {
-            text-align: start;
-            @include font-p($text-color);
-            &__link {
-                text-decoration: none;
-                @include font-p($text-color); 
-                &:hover {
-                    color: $main-color;
-                }           
+        width: 100%;
+        @include flex(column, center, center, $gap-list);
+        &__description {
+            opacity: 0;
+            height: 0;
+            transition: $transition;
+            list-style: none;
+            &__item {
+                text-align: justify;
+                @include font-p($text-color-second);
+            }
+        }
+        &__link {
+            width: 100%;
+            list-style: none;
+            @include flex(row, center, center, $gap-list); 
+            &__item {
+                &__link {
+                    &__icon {
+                        height: $icon-height;
+                        color: $main-color;
+                    }
+                }
             }
         }
     }

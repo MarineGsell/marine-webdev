@@ -2,7 +2,7 @@
     <HeaderHeroMain />
     <About />
     <Competences />
+    <FlowerSection />
     <Works />
     <Opinions />
-    <!-- <Flowers /> -->
 </template>

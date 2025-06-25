@@ -29,7 +29,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .card {
     width: 100%;
-    @include card($bg-color);
+    @include card($white);
     @include flex (column, start, center, $gap-third-desktop);
     @include responsive-tablette {
         @include flex (column, start, center, $gap-third-tablette);

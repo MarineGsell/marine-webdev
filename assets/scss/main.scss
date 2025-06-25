@@ -1,5 +1,6 @@
 // Colors
 $bg-color: #faeee7;
+$bg-transparent: rgba(250, 238, 231, 0.3);
 $main-color: #ff8ba7;
 $second-color: #ffc6c7;
 $third-color: #c3f0ca;
@@ -9,6 +10,8 @@ $white: #ffffff;
 $flower-orange: #ffd4b3;
 $flower-blue: #b3d9ff;
 $flower-purple: #dda0dd;
+$bg-gradient: linear-gradient(to bottom, #faeee7, #ffffff);
+$bg-gradient2: linear-gradient(to top, #faeee7, #ffffff);
 
 // Heigth
 $logo-height: 60px;
@@ -123,7 +126,6 @@ $text-font: "Poppins", sans-serif;
         line-height: 30px;
     }
 }
-
 @mixin font-h2($color) {
     font-family: $title-font;
     font-size: 48px;
@@ -278,10 +280,10 @@ $padding-nav: 16px;
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(51, 39, 42, 0.06);
     }
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 32px rgba(51, 39, 42, 0.12);
-    }
+    // &:hover {
+    //     transform: translateY(-4px);
+    //     box-shadow: 0 8px 32px rgba(51, 39, 42, 0.12);
+    // }
 }
 
 // Forms

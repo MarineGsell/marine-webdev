@@ -15,15 +15,8 @@
 <style lang="scss" scoped>
 .container {
     width: 100%;
-    height: 80vh;
-    background-color: $bg-color;
-    padding: $gap-main-desktop 0;
-    // @include responsive-tablette {
-    //     height: 80vh;
-    // }
-    // @include responsive-mobile {
-    //     height: 100vh;
-    // }
+    background: $bg-gradient;
+    @include padding-top-section;
     &__flowers {
         display: grid;
         grid-template-columns: repeat(8, 1fr);
