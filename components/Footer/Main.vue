@@ -84,13 +84,13 @@
             &__link {
                 display: block;
                 height: 32px;
+                @include responsive-tablette {
+                    height: 24px;
+                }
                 &__icon {
                     color: $white;
                     height: 32px;
                     @include responsive-tablette {
-                        height: 24px;
-                    }
-                    @include responsive-mobile {
                         height: 24px;
                     }
                 }
@@ -99,9 +99,6 @@
                 color: $white;
                 height: 32px;
                 @include responsive-tablette {
-                    height: 24px;
-                }
-                @include responsive-mobile {
                     height: 24px;
                 }
             }
