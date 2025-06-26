@@ -14,7 +14,13 @@
                     title="Linkedin"
                     text="Marine Chopin Gsell"
                 >
-                    <SvgLinkedin class="footer__content__info__icon"/>
+                    <a 
+                        href="https://www.linkedin.com/in/marine-chopin-gsell-07941a334/"
+                        target="_blank"
+                        class="footer__content__info__link"
+                    >
+                        <SvgLinkedin class="footer__content__info__link__icon"/>
+                    </a>
                 </FooterInfoLine>
                 <FooterInfoLine 
                     title="E-mail"
@@ -75,7 +81,22 @@
             @include responsive-mobile {
                 @include flex(column, center, start, $gap-third-mobile)
             }
+            &__link {
+                display: block;
+                height: 32px;
+                &__icon {
+                    color: $white;
+                    height: 32px;
+                    @include responsive-tablette {
+                        height: 24px;
+                    }
+                    @include responsive-mobile {
+                        height: 24px;
+                    }
+                }
+            }
             &__icon {
+                color: $white;
                 height: 32px;
                 @include responsive-tablette {
                     height: 24px;
