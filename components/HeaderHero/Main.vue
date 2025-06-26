@@ -1,5 +1,5 @@
 <template>
-    <section class="header-hero">
+    <section class="header-hero" id="header">
         <div class="header-hero__container">
             <SvgFleur class="header-hero__container__left"/>
             <div class="header-hero__container__content">

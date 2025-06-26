@@ -3,8 +3,10 @@
 <template>
     <header class="header">
         <div class="header__logo">
-            <SvgLogo class="header__logo__big"/>
-            <SvgLogoLittle class="header__logo__little"/>
+            <NuxtLink to="#header">
+                <SvgLogo class="header__logo__big"/>
+                <SvgLogoLittle class="header__logo__little"/>
+            </NuxtLink>
         </div>
         <div class="header__nav">
             <HeaderHamburger class="header__nav__hamburger"/>

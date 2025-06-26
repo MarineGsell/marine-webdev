@@ -1,8 +1,14 @@
+<script setup>
+const emit = defineEmits(['close-menu'])
+const handleLinkClick = () => {
+    emit('close-menu')
+}
+</script>
 <template>
     <nav class="nav">
-        <NuxtLink class="nav__link" to="#about">à propos</NuxtLink>
-        <NuxtLink class="nav__link" to="#works">projets</NuxtLink>
-        <NuxtLink class="nav__link" to="#contact">contact</NuxtLink>
+        <NuxtLink class="nav__link" to="#about" @click="handleLinkClick">à propos</NuxtLink>
+        <NuxtLink class="nav__link" to="#works" @click="handleLinkClick">projets</NuxtLink>
+        <NuxtLink class="nav__link" to="#contact" @click="handleLinkClick">contact</NuxtLink>
     </nav>
 </template>
 <style lang="scss" scoped>
