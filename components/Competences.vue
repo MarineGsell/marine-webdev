@@ -50,12 +50,6 @@ const outils = competences.filter(competence => competence.categorie === "Outils
 .competences {
     background-color: $bg-color;
     @include padding-top-section;
-    @include responsive-tablette {
-        padding-bottom: $gap-main-tablette;    
-    }
-    @include responsive-mobile {
-        padding-bottom: $gap-main-mobile;    
-    }
     &__content {
         width: 100%;
         @include padding-div;

@@ -6,7 +6,7 @@ const opinions = [
         "src": "/alexandre-chopin.webp",
         "alt": "Alexandre Chopin",
         "link": "https://www.linkedin.com/in/alexchopin/",
-        "opinion": "Investie et autodidacte, avec un grand sens du détail."
+        "opinion": "Marine est une développeuse web particulièrement investie, qui allie parfaitement autonomie d'apprentissage et précision technique. Son sens aigu du détail et sa capacité d'autoformation en font une collaboratrice fiable et rigoureuse."
     },
     {
         "id": 2,

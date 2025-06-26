@@ -53,21 +53,35 @@ const props = defineProps({
 .card {
     width: 100%;
     transition: $transition;
-    height: 560px;
+    height: 400px;
     &:hover {
-        height: 680px;
+        height: 600px;
+        @include responsive-tablette {
+            height: 640px;
+        }
+        @include responsive-mobile {
+            height: 560px;
+        }
         .card__content__description {
             opacity: 1;
-            height: 120px;
+            height: 200px;
             width: 90%;
+            @include responsive-tablette {
+                height: 154px;
+            }
+            @include responsive-mobile {
+                height: 160px;
+            }
         }
     }
     @include card($bg-color);
     @include flex(column, start, center, $gap-third-desktop);
     @include responsive-tablette {
+        height: 480px;
         @include flex(column, start, center, $gap-third-tablette);        
     }
     @include responsive-mobile {
+        height: 400px;
         @include flex(column, start, center, $gap-third-mobile);        
     }
     &__img {
@@ -76,10 +90,10 @@ const props = defineProps({
         object-position: center;
         height: 200px;
         @include responsive-tablette {
-            height: 360px;
+            height: 300px;
         }
         @include responsive-mobile {
-            height: 160px;
+            height: 250px;
         }
         &__hover {
             display: none;
@@ -98,7 +112,7 @@ const props = defineProps({
             transition: $transition;
             list-style: none;
             &__item {
-                text-align: justify;
+                text-align: center;
                 @include font-p($text-color-second);
             }
         }

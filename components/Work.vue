@@ -53,11 +53,9 @@ const filteredByCategory = (category) => {
     @include flex(column, center, center, $gap-second-desktop);
     @include responsive-tablette {
         @include flex(column, center, center, $gap-second-tablette);    
-        padding-bottom: $gap-main-tablette;       
     }
     @include responsive-mobile {
         @include flex(column, center, center, $gap-second-mobile);    
-        padding-bottom: $gap-main-mobile;
     }
     @include padding-div;
     @include padding-top-section; 
@@ -94,10 +92,10 @@ const filteredByCategory = (category) => {
         gap: $gap-second-desktop;
         @include responsive-tablette {
             gap: $gap-second-tablette; 
-            grid-template-columns: repeat(1, 1fr);  
-            width: 70%;     
+            grid-template-columns: repeat(2, 1fr);  
         }
         @include responsive-mobile {
+            grid-template-columns: repeat(1, 1fr);  
             gap: $gap-second-mobile; 
         }
     } 
