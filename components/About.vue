@@ -57,7 +57,7 @@ onUnmounted(() => {
 })
 </script>
 <template>
-    <section class="about">
+    <section class="about" id="about">
         <div class="about__content">
             <div class="about__content__text">
                 <div class="about__content__text__title">

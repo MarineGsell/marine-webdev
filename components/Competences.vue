@@ -76,16 +76,13 @@ const outils = competences.filter(competence => competence.categorie === "Outils
             gap: $gap-third-desktop;
             @include responsive-tablette {
                 gap: $gap-third-tablette;
+                grid-template-columns: repeat(1, 1fr);
+                width: 70%;
             }
             @include responsive-mobile {
                 gap: $gap-third-mobile;
-                grid-template-columns: repeat(1, 1fr);
                 width: 90%;
             }
-
-            // &__card {
-                // justify-self: center;
-            // }
         }
     }
 }

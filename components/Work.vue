@@ -18,13 +18,10 @@ const filteredByCategory = (category) => {
 
 </script>
 <template>
-    <section class="works">
+    <section class="works" id="works">
         <div class="works__about">
-            <div class="works__about__content">
-                <h2 class="works__about__content__title">Mes réalisations web</h2>
-                <p class="works__about__content__text">Entre projets de formation et créations personnelles, découvrez mon parcours en développement web. Chaque réalisation témoigne de ma progression et de mon approche créative pour concevoir des expériences digitales uniques. Du frontend avec React et Vue.js au backend avec Node.js, je développe des solutions modernes et sur-mesure.</p>
-            </div>
-            <SvgFleur class="works__about__flower"/>
+            <h2 class="works__about__title">Mes réalisations web</h2>
+            <p class="works__about__text">Entre projets de formation et créations personnelles, découvrez mon parcours en développement web. Chaque réalisation témoigne de ma progression et de mon approche créative pour concevoir des expériences digitales uniques. Du frontend avec React et Vue.js au backend avec Node.js, je développe des solutions modernes et sur-mesure.</p>
         </div>
         <div class="works__filter">
             <ButtonsFilter 
@@ -65,32 +62,20 @@ const filteredByCategory = (category) => {
     @include padding-div;
     @include padding-top-section; 
     &__about {
-        @include flex(row, center, center, $gap-second-desktop);
+        width: 100%;
+        @include flex(column, center, center, $gap-second-desktop);
         @include responsive-tablette {
-                @include flex(row, center, center, $gap-second-tablette);    
+                @include flex(column, center, center, $gap-second-tablette);    
             }
         @include responsive-mobile {
-                @include flex(row, center, center, $gap-second-mobile);    
+                @include flex(column, center, center, $gap-second-mobile);    
             }
-        &__flower {
-            @include flower($second-color);
+        &__title {
+            @include font-h2($text-color);
         }
-        &__content {
-            width: 60%;
-            @include flex(column, center, start, $gap-third-desktop);
-            @include responsive-tablette {
-                    @include flex(column, center, start, $gap-third-tablette);    
-                }
-            @include responsive-mobile {
-                    @include flex(column, center, start, $gap-third-mobile);    
-                }
-            &__title {
-                @include font-h2($text-color);
-            }
-            &__text {
-                text-align: justify;
-                @include font-p($text-color);
-            }
+        &__text {
+            text-align: justify;
+            @include font-p($text-color);
         }
     }
     &__filter {
@@ -99,7 +84,7 @@ const filteredByCategory = (category) => {
             @include flex(row, center, center, $gap-third-tablette);    
         }
         @include responsive-mobile {
-            @include flex(row, center, center, $gap-third-mobile);    
+            @include flex(column, center, center, $gap-third-mobile);    
         }
     }
     &__list {
@@ -109,10 +94,11 @@ const filteredByCategory = (category) => {
         gap: $gap-second-desktop;
         @include responsive-tablette {
             gap: $gap-second-tablette; 
+            grid-template-columns: repeat(1, 1fr);  
+            width: 70%;     
         }
         @include responsive-mobile {
             gap: $gap-second-mobile; 
-            grid-template-columns: repeat(1, 1fr);       
         }
     } 
 }

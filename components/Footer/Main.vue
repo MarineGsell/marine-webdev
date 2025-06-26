@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <footer class="footer">
+    <footer class="footer" id="contact">
         <NuxtImg 
             class="footer__avatar"
             src="/avatar.webp"
@@ -36,12 +36,15 @@
 <style lang="scss" scoped>
 .footer {
     background-color: $bg-color;
+    padding-bottom: $gap-second-desktop;
     @include padding-top-section;
     @include flex(row, center, center, $gap-main-desktop);
     @include responsive-tablette {
+        padding-bottom: $gap-second-tablette;
         @include flex(row, center, center, $gap-main-tablette)
     }
     @include responsive-mobile {
+        padding-bottom: $gap-second-mobile;
         @include box(center)
     }
     &__avatar {

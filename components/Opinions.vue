@@ -12,6 +12,7 @@ import opinions from "/data/opinions.js"
                     :key="opinion.id"
                     :name="opinion.name"
                     :job="opinion.job"
+                    :to="opinion.link"
                     :opinion="opinion.opinion"
                 >
                     <NuxtImg 
@@ -50,11 +51,9 @@ import opinions from "/data/opinions.js"
             gap: $gap-second-desktop;
             @include responsive-tablette {
                 gap: $gap-second-tablette; 
-                padding-bottom: $gap-main-tablette;       
             }
             @include responsive-mobile {
                 gap: $gap-second-mobile; 
-                padding-bottom: $gap-main-mobile;
                 grid-template-columns: repeat(1, 1fr);       
             }
             &__card {

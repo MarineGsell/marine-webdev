@@ -53,12 +53,13 @@ const props = defineProps({
 .card {
     width: 100%;
     transition: $transition;
-    height: 400px;
+    height: 560px;
     &:hover {
-        height: 560px;
+        height: 680px;
         .card__content__description {
             opacity: 1;
-            height: 160px;
+            height: 120px;
+            width: 90%;
         }
     }
     @include card($bg-color);
@@ -75,7 +76,7 @@ const props = defineProps({
         object-position: center;
         height: 200px;
         @include responsive-tablette {
-            height: 180px;
+            height: 360px;
         }
         @include responsive-mobile {
             height: 160px;
@@ -86,11 +87,11 @@ const props = defineProps({
     }
     &__title {
         text-align: center;
-        @include font-h3;
+        @include font-h3($text-color);
     }
     &__content {
         width: 100%;
-        @include flex(column, center, center, $gap-list);
+        @include flex(column, center, center, 0);
         &__description {
             opacity: 0;
             height: 0;

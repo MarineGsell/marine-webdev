@@ -3,6 +3,6 @@
     <About />
     <Competences />
     <FlowerSection />
-    <Works />
+    <Work />
     <Opinions />
 </template>

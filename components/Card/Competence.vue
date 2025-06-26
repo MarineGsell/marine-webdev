@@ -28,7 +28,7 @@ const props = defineProps({
     &__title {
         width: 100%;
         text-align: center;
-        @include font-h3;
+        @include font-h3($text-color);
     }
     &__content {
         width: 100%;

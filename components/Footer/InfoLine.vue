@@ -43,7 +43,7 @@ const props = defineProps({
             @include flex(column, center, start, $gap-list-mobile);
         }
         &__title {
-            @include font-h3;
+            @include font-h3($text-color);
         }
         &__text {
             @include font-p($text-color);

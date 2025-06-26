@@ -1,6 +1,6 @@
 // Colors
 $bg-color: #faeee7;
-$bg-transparent: rgba(250, 238, 231, 0.3);
+$bg-transparent: rgba(250, 238, 231, 0.7);
 $main-color: #ff8ba7;
 $second-color: #ffc6c7;
 $third-color: #c3f0ca;
@@ -140,12 +140,12 @@ $text-font: "Poppins", sans-serif;
         font-size: 32px;
     }
 }
-@mixin font-h3 {
+@mixin font-h3($color) {
     font-family: $text-font;
     font-size: 28px;
     font-weight: 200;
     line-height: 1.3;
-    color: $text-color;
+    color: $color;
     text-transform: uppercase;
     letter-spacing: -0.2px;
     @include responsive-tablette {
@@ -216,9 +216,9 @@ $text-font: "Poppins", sans-serif;
 }
 
 // Gap et padding
-$gap-main-desktop: 200px;
-$gap-main-tablette: 160px;
-$gap-main-mobile: 120px;
+$gap-main-desktop: 120px;
+$gap-main-tablette: 100px;
+$gap-main-mobile: 80px;
 
 $gap-second-desktop: 64px;
 $gap-second-tablette: 48px;

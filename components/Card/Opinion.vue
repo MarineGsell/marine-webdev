@@ -11,16 +11,30 @@ const props = defineProps({
     opinion: {
         type: String, 
         required: true
+    },
+    to: {
+        type: String,
+        required:true
     }
 })
 </script>
 <template>
     <div class="card">
         <slot>
-            <SvgPerson class="card__icon"/>
+            <SvgPerson class="card__icon">
+            </SvgPerson>
         </slot>
         <div class="card__person">
-            <h3 class="card__person__name">{{ name }}</h3>
+            <h3 class="card__person__name">
+                <a 
+                    :href="to" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="card__person__name__link"
+                >            
+                    {{ name }}
+                </a>
+            </h3>        
             <p class="card__person__job">{{ job }}</p>
         </div>
         <p class="card__opinion">{{ opinion }}</p>
@@ -47,7 +61,18 @@ const props = defineProps({
         &__name {
             width: 100%;
             text-align: center;
-            @include font-h3
+            cursor: pointer;
+            @include font-h3($text-color);
+            &__link {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                pointer-events: auto;
+                color: $text-color;
+                &:hover {
+                    color: $main-color;
+                }
+            }
         }
         &__job {
             width: 100%;

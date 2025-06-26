@@ -1,8 +1,8 @@
 <template>
     <nav class="nav">
-        <NuxtLink class="nav__link" to="#">à propos</NuxtLink>
-        <NuxtLink class="nav__link" to="#">projets</NuxtLink>
-        <NuxtLink class="nav__link" to="#">contact</NuxtLink>
+        <NuxtLink class="nav__link" to="#about">à propos</NuxtLink>
+        <NuxtLink class="nav__link" to="#works">projets</NuxtLink>
+        <NuxtLink class="nav__link" to="#contact">contact</NuxtLink>
     </nav>
 </template>
 <style lang="scss" scoped>

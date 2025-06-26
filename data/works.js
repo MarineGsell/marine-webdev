@@ -6,7 +6,7 @@ const works = [
         "imgAlt": "capture d'écran de la page d'accueil de Brico Jardi",
         "category": "Frontend",
         "techno": "Nuxt.js",
-        "description": "Développement frontend avec Nuxt.js d'un site e-commerce. Mise en place du routing, composants réutilisables et interface responsive.",
+        "description": "Développement frontend avec Nuxt.js d'un site vitrine. Mise en place du routing, composants réutilisables et interface responsive.",
         "repo": "https://github.com/MarineGsell/BricoJardiNuxt",
         "link": "https://www.bricojardi.com/" 
     },

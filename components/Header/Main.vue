@@ -10,9 +10,13 @@
             <HeaderHamburger class="header__nav__hamburger"/>
             <HeaderNav class="header__nav__menu"/>
         </div>
-        <NuxtLink class="header__social">
+        <a 
+            class="header__social" 
+            href="https://www.linkedin.com/in/marine-chopin-gsell-07941a334/"
+            target="_blank"
+        >
             <SvgLinkedin class="header__social__icon"/>
-        </NuxtLink>
+        </a>
     </header>
 </template>
 <style lang="scss" scoped>
@@ -22,7 +26,7 @@
     z-index: 100;
     height: 72px;
     padding: 0 24px;
-    background-color: $bg-color;
+    background-color: $bg-transparent;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;

@@ -5,7 +5,8 @@ const opinions = [
         "job": "VP of Engineering chez Directus",
         "src": "/alexandre-chopin.webp",
         "alt": "Alexandre Chopin",
-        "opinion": "Passionneée et autodidacte avec un grand sens du détail."
+        "link": "https://www.linkedin.com/in/alexchopin/",
+        "opinion": "Investie et autodidacte, avec un grand sens du détail."
     },
     {
         "id": 2,
@@ -13,6 +14,7 @@ const opinions = [
         "job": "Fondatrice, Studio Créatif",
         "src": "",
         "alt": "",
+        "link": "https://www.linkedin.com/in/alexchopin/",
         "opinion":"Marine a su transformer notre vision en un site web élégant et fonctionnel. Son approche créative et son écoute attentive ont fait toute la différence."
     },
     {
@@ -21,6 +23,7 @@ const opinions = [
         "job": "Directeur Marketing, TechStart",
         "src": "",
         "alt": "",
+        "link": "https://www.linkedin.com/in/alexchopin/",
         "opinion":"Collaboration très fluide avec Marine. Elle a créé une interface moderne qui reflète parfaitement notre identité de marque. Résultat au-delà de nos attentes !"
     },
 ]
