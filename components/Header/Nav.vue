@@ -6,9 +6,35 @@ const handleLinkClick = () => {
 </script>
 <template>
     <nav class="nav">
-        <NuxtLink class="nav__link" to="#about" @click="handleLinkClick">à propos</NuxtLink>
-        <NuxtLink class="nav__link" to="#works" @click="handleLinkClick">projets</NuxtLink>
-        <NuxtLink class="nav__link" to="#contact" @click="handleLinkClick">contact</NuxtLink>
+        <NuxtLink 
+            class="nav__link" 
+            to="#about" 
+            @click="handleLinkClick"
+            aria-label="À propos de Marine Chopin Gsell"
+            title="À propos de Marine Chopin Gsell"
+        >
+            à propos
+        </NuxtLink>
+        <NuxtLink 
+            class="nav__link" 
+            to="#works" 
+            @click="handleLinkClick"
+            aria-label="Les travaux de Marine Chopin Gsell"
+            title="Les travaux de Marine Chopin Gsell"
+
+        >
+            projets
+        </NuxtLink>
+        <NuxtLink 
+            class="nav__link" 
+            to="#contact" 
+            @click="handleLinkClick"
+            aria-label="Contacter Marine Chopin Gsell"
+            title="Contacter Marine Chopin Gsell"
+
+        >
+            contact
+        </NuxtLink>
     </nav>
 </template>
 <style lang="scss" scoped>

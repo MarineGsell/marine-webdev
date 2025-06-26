@@ -14,7 +14,7 @@ const props = defineProps({
     },
     to: {
         type: String,
-        required:true
+        default: ""
     }
 })
 </script>
@@ -26,14 +26,18 @@ const props = defineProps({
         </slot>
         <div class="card__person">
             <h3 class="card__person__name">
-                <a 
+                <a
+                    v-if="to !== ''"
                     :href="to" 
+                    :aria-label="`Page Linkedin de ${name}`"
+                    :title="`Page Linkedin de ${name}`"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="card__person__name__link"
                 >            
                     {{ name }}
                 </a>
+                <p v-else >{{ name }}</p>
             </h3>        
             <p class="card__person__job">{{ job }}</p>
         </div>

@@ -14,7 +14,7 @@ const opinions = [
         "job": "Fondatrice, Studio Créatif",
         "src": "",
         "alt": "",
-        "link": "https://www.linkedin.com/in/alexchopin/",
+        "link": "",
         "opinion":"Marine a su transformer notre vision en un site web élégant et fonctionnel. Son approche créative et son écoute attentive ont fait toute la différence."
     },
     {
@@ -23,7 +23,7 @@ const opinions = [
         "job": "Directeur Marketing, TechStart",
         "src": "",
         "alt": "",
-        "link": "https://www.linkedin.com/in/alexchopin/",
+        "link": "",
         "opinion":"Collaboration très fluide avec Marine. Elle a créé une interface moderne qui reflète parfaitement notre identité de marque. Résultat au-delà de nos attentes !"
     },
 ]

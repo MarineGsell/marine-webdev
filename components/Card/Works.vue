@@ -36,14 +36,26 @@ const props = defineProps({
             </ul>
             <ul class="card__content__link">
                 <li class="card__content__link__item">
-                    <NuxtLink class="card__content__link__item__link" :to="repo" target="_blank">
+                    <a 
+                        class="card__content__link__item__link" 
+                        :href="repo" 
+                        target="_blank"
+                        :aria-label="`Repo Github de ${title}`"
+                        :title="`Repo Github de ${title}`"
+                    >
                         <SvgGithub class="card__content__link__item__link__icon"/>
-                    </NuxtLink>
+                    </a>
                 </li>            
                 <li class="card__content__link__item" v-if="link !== ''">
-                    <NuxtLink class="card__content__link__item__link" :to="link" target="_blank">
+                    <a 
+                    class="card__content__link__item__link" 
+                    :href="link" 
+                    target="_blank"
+                    :aria-label="`Site de ${title}`"
+                    :title="`Site de ${title}`"
+                    >
                         <SvgWeb class="card__content__link__item__link__icon"/>
-                    </NuxtLink>
+                    </a>
                 </li>            
             </ul>
         </div>
