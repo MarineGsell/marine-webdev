@@ -7,9 +7,9 @@ const props = defineProps ({
 });
 </script>
 <template>
-    <button class="button">
-        <NuxtLink class="button__link" :to="to"><slot></slot></NuxtLink>
-    </button>
+    <NuxtLink class="button" :to="to">
+        <slot></slot>
+    </NuxtLink>
 </template>
 <style lang="scss" scoped>
 .button {
@@ -19,6 +19,7 @@ const props = defineProps ({
     border: none;
     padding: $padding-button;
     transition: $transition;
+    text-decoration: none;
     cursor: pointer;
     @include font-button ($text-color);
     @include responsive-mobile {

@@ -3,7 +3,7 @@
 <template>
     <header class="header">
         <div class="header__logo">
-            <NuxtLink to="#header">
+            <NuxtLink to="#header" aria-label="Retour en haut de la page" title="Retour en haut de la page">
                 <SvgLogo class="header__logo__big"/>
                 <SvgLogoLittle class="header__logo__little"/>
             </NuxtLink>
@@ -16,6 +16,8 @@
             class="header__social" 
             href="https://www.linkedin.com/in/marine-chopin-gsell-07941a334/"
             target="_blank"
+            aria-label="Lien vers la page Linkedin de Marine Chopin Gsell"
+            title="Lien vers la page Linkedin de Marine Chopin Gsell"
         >
             <SvgLinkedin class="header__social__icon"/>
         </a>

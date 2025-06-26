@@ -7,10 +7,8 @@
                     <SvgLogo class="header-hero__container__content__title__logo"/>
                     <h1 class="header-hero__container__content__title__line">Créatrice d'expérience web sur mesure</h1>
                 </div>
-                <ButtonsMain class="header-hero__container__content__button">
-                    <NuxtLink to="#contact" class="header-hero__container__content__button__link">
+                <ButtonsMain class="header-hero__container__content__button" to="#contact">
                         Contactez moi
-                    </NuxtLink>
                 </ButtonsMain>
             </div>
             <SvgFleur class="header-hero__container__right"/>
@@ -81,12 +79,6 @@
                 }
                 &__line {
                     @include font-subtitle;
-                }
-            }
-            &__button {
-                &__link {
-                    text-decoration: none;
-                    color: $text-color;
                 }
             }
         }
