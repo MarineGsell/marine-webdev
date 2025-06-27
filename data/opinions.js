@@ -10,12 +10,12 @@ const opinions = [
     },
     {
         "id": 2,
-        "name": "Sophie Dubois",
-        "job": "Fondatrice, Studio Créatif",
-        "src": "",
-        "alt": "",
-        "link": "",
-        "opinion":"Marine a su transformer notre vision en un site web élégant et fonctionnel. Son approche créative et son écoute attentive ont fait toute la différence."
+        "name": "Cristiano Gomes",
+        "job": "Développeur / Mentor chez OpenClassrooms",
+        "src": "/cristiano-gomes.webp",
+        "alt": "Cristiano Gomes",
+        "link": "https://www.linkedin.com/in/cristiano-gomes-143478145/",
+        "opinion":"Marine est une étudiante sérieuse, appliquée dans les travaux entrepris, très professionnelle. C’est une personne fiable et impliquée dans son travail."
     },
     {
         "id": 3,
