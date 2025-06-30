@@ -51,10 +51,10 @@ import opinions from "/data/opinions.js"
             gap: $gap-second-desktop;
             @include responsive-tablette {
                 gap: $gap-second-tablette; 
+                grid-template-columns: repeat(1, 1fr);       
             }
             @include responsive-mobile {
                 gap: $gap-second-mobile; 
-                grid-template-columns: repeat(1, 1fr);       
             }
             &__card {
                 width: 100%;
