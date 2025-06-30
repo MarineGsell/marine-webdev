@@ -12,7 +12,7 @@ const opinions = [
         "id": 2,
         "name": "Cristiano Gomes",
         "job": "Développeur / Mentor, chez openclassroom",
-        "src": "",
+        "src": "/cristiano-gomes.webp",
         "alt": "Cristiano Gomes",
         "link": "https://www.linkedin.com/in/cristiano-gomes-143478145/",
         "opinion":"Marine est une étudiante sérieuse et appliquée dans les travaux entrepris, très professionnelle. C'est une personne fiable et impliquée dans son travail."
