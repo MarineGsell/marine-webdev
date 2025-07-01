@@ -171,6 +171,38 @@ $text-font: "Poppins", sans-serif;
         letter-spacing: 0.3px;
     }
 }
+@mixin font-p-little {
+    font-family: $text-font;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: $text-color-second;
+    letter-spacing: 0.4px;
+    @include responsive-tablette {
+        font-size: 14px;
+        line-height: 1.9;
+    }
+    @include responsive-mobile {
+        font-size: 14px;
+        letter-spacing: 0.3px;
+    }
+}
+@mixin font-p-message($color){
+    font-family: $text-font;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: $color;
+    letter-spacing: 0.4px;
+    @include responsive-tablette {
+        font-size: 10px;
+        line-height: 1.9;
+    }
+    @include responsive-mobile {
+        font-size: 10px;
+        letter-spacing: 0.3px;
+    }
+}
 @mixin font-link {
     font-family: $text-font;
     font-size: 16px;
@@ -232,6 +264,7 @@ $gap-list: 20px;
 $gap-list-mobile: 12px;
 
 $padding-button: 16px 32px;
+$padding-button-little: 4px 8px;
 $padding-card: 32px;
 $padding-nav: 16px;
 
@@ -291,9 +324,9 @@ $padding-nav: 16px;
     background-color: $bg-color;
     border: 2px solid transparent;
     border-radius: 8px;
-    padding: 16px;
+    padding: 4px;
     transition: $transition;
-    @include font-p;
+    @include font-p-little;
     @include responsive-mobile {
         padding: 14px;
     }

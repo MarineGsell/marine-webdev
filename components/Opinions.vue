@@ -1,5 +1,14 @@
 <script setup>
 import opinions from "/data/opinions.js"
+
+// Modale
+const modale = ref(false)
+const openModale = () => {
+    modale.value = true
+}
+const closeModale = () => {
+    modale.value = false
+}
 </script>
 <template>
     <section class="opinion">
@@ -22,7 +31,12 @@ import opinions from "/data/opinions.js"
                         class="opinion__content__cards__card__picture" 
                     />
                 </CardOpinion>
+                <ModaleMain 
+                    v-if="modale"
+                    @close="closeModale()"
+                />
             </div>
+            <ButtonsMain @click="openModale()">Laissez votre avis</ButtonsMain>
         </div>
     </section>
 </template>
