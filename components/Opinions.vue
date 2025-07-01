@@ -1,5 +1,5 @@
 <script setup>
-import opinions from "/data/opinions.js"
+const { data: opinions } = await useFetch('/api/opinions')
 
 // Modale
 const modale = ref(false)

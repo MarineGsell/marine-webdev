@@ -1,19 +1,21 @@
 <script setup>
-import works from "/data/works.js"
-
+const { data: worksData } = await useFetch('/api/works')
+const works = computed(() => {
+    return worksData.value
+})
 // Filter Bar
 const categories = ['Tous', 'Frontend', 'Backend', 'Performances & SEO'] 
 const activeCategory = ref('Tous')
-const filteredWorks = ref([...works])
+const filteredWorks = computed(() => {
+    if(activeCategory.value == 'Tous'){
+        return works.value
+    } else {
+        return works.value?.filter(work => work.category === activeCategory.value)
+    }
+})
 
 const filteredByCategory = (category) => {
     activeCategory.value = category
-    if(category === 'Tous'){
-        filteredWorks.value = [...works]
-    } else {
-        filteredWorks.value = works.filter(work => work.category === category)
-    }
-    return filteredWorks
 }
 
 </script>

@@ -1,3 +1,4 @@
+export default defineEventHandler(async (event) => {
 const opinions = [
     {
         "id": 1,
@@ -27,5 +28,5 @@ const opinions = [
         "opinion":"Collaboration très fluide avec Marine. Elle a créé une interface moderne qui reflète parfaitement notre identité de marque. Résultat au-delà de nos attentes !"
     },
 ]
-
-export default opinions
+    return opinions
+})
