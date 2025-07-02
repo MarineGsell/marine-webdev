@@ -499,7 +499,8 @@ const resetForm = () => {
         >
             <span v-if="isSubmitting">⏳ Envoi en cours...</span>
             <span v-else-if="isSubmitted">✅ Envoyé !</span>
-            <span v-else>{{ isFormValid ? 'Envoyer ✅' : 'Envoyer' }}</span>        </ButtonsMain>
+            <span v-else>{{ isFormValid ? 'Envoyer ✅' : 'Envoyer' }}</span>        
+        </ButtonsMain>
     </form>
     <p v-if="isSubmitted" class="succes">Merci de votre témoignage ! Il sera examiné avant publication sur le site.</p>
     <p v-if="submitError" class="error">{{ submitError }}</p>
@@ -529,7 +530,7 @@ const resetForm = () => {
             }
             &__input {
                 width: 100%;
-                @include input;
+                @include input($bg-color);
             }
             &__error {
                 width: 100%;
@@ -540,7 +541,7 @@ const resetForm = () => {
             }
             &__customButton {
                 width: 100%;
-                @include input;
+                @include input($bg-color);
                 @include flex(row, center, center, 8px);
                 @include font-p-little;
                 &__icon {
@@ -577,7 +578,7 @@ const resetForm = () => {
         }
         &__text {
             width: 100%;
-            @include input;
+            @include input($bg-color);
         }
         &__error {
             width: 100%;

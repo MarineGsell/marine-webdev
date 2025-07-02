@@ -1,0 +1,4 @@
+<template>
+    <HeaderDash />
+    <slot />
+</template>

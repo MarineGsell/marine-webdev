@@ -320,8 +320,8 @@ $padding-nav: 16px;
 }
 
 // Forms
-@mixin input {
-    background-color: $bg-color;
+@mixin input($color) {
+    background-color: $color;
     border: 2px solid transparent;
     border-radius: 8px;
     padding: 4px;
