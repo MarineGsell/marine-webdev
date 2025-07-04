@@ -9,9 +9,9 @@ definePageMeta({
     <main class="dashboard">
         <div class="dashboard__content">
             <DashboardHeader />
-            <DashboardCompetences />
+            <DashboardCompetencesMain />
             <DashboardOpinions />
-            <DashboardWorks />
+            <DashboardWorksMain />
         </div>
     </main>
 </template>

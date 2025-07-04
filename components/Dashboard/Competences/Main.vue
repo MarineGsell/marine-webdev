@@ -1,6 +1,4 @@
 <script setup>
-import { DashboardModale } from '#components'
-
 // Modale
 const modale = ref(false)
 const currentCompetenceId = ref(null)
@@ -108,7 +106,7 @@ const deleteCompetence = async (id) => {
                     />
                 </CardCompetence>
         </div>
-        <DashboardModale 
+        <DashboardCompetencesModale 
             v-if="modale"
             :competenceId="currentCompetenceId"
             @close="closeModale()"

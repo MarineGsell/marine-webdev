@@ -1,4 +1,7 @@
 <script setup>
+// Data
+const { data: works } = await useFetch('/api/works', {key: 'works'})
+
 // ✨ Création des variables réactives pour chaque champ
 const title = ref('')         // Stocke le titre
 const category = ref('')      // Stocke la catégorie  
@@ -313,6 +316,19 @@ const resetForm = () => {
 <template>
     <section class="works" id="worksDash">
         <h2 class="works__title">Rajouter un projet</h2>
+        <div class="works__cards">
+            <DashboardWorksCard 
+                v-for="work in works" 
+                :key="work.id" 
+                :imgSrc="work.imgSrc" 
+                :imgAlt="work.imgAlt" 
+                :title="work.title" 
+                :repo="work.repo" 
+                :link="work.link"
+                :content="work.description"
+                :admin="true"
+            />
+        </div>
         <form class="works__form">
             <div class="works__form__row">
                 <div class="works__form__row__field">
@@ -452,6 +468,19 @@ const resetForm = () => {
     @include flex(column, center, center, $gap-second-desktop);
     &__title {
         @include font-h2($text-color);
+    }
+    &__cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $gap-third-desktop;
+        @include responsive-tablette {
+            grid-template-columns: repeat(2, 1fr);
+            gap: $gap-third-tablette;
+        }
+        @include responsive-mobile {
+            grid-template-columns: repeat(1, 1fr);
+            gap: $gap-third-mobile;
+        }
     }
     &__form {
         width: 70%;
