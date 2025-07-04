@@ -1,4 +1,4 @@
-import { tables, useDrizzle } from "../utils/drizzle"
+import { tables, useDrizzle } from "../../utils/drizzle"
 
 export default defineEventHandler(async (event) => {
 

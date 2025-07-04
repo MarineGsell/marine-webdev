@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-// Layout
 const { loggedIn, user, fetch: refreshSession } = useUserSession()
 
 const credentials = reactive({
