@@ -213,10 +213,8 @@ const handleSubmit = async (event) => {
         console.log('✅ Projet envoyé avec succès !')
         isSubmitted.value = true
         
-        // Optionnel: reset du formulaire après 3 secondes
-        setTimeout(() => {
-            resetForm()
-        }, 3000)
+        // Reset du formulaire après 3 secondes
+        resetForm()
         
     } catch (error) {
         // 6️⃣ Gestion des erreurs

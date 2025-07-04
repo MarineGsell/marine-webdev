@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxthub/core'],
+  modules: ['@nuxt/image', '@nuxt/fonts', '@nuxthub/core', 'nuxt-auth-utils'],
   hub: {
     database: true
   }

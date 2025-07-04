@@ -1,6 +1,7 @@
 import { tables, useDrizzle } from "../utils/drizzle"
 
 export default defineEventHandler(async (event) => {
+
     // const competences = [
     //     {
     //         "id": 5,

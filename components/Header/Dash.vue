@@ -1,4 +1,9 @@
 <script setup>
+const { user, clear: clearSession } = useUserSession()
+async function logout() {
+  await clearSession()
+  await navigateTo('/admin')
+}
 </script>
 <template>
     <header class="header">
@@ -12,7 +17,7 @@
             <HeaderHamburgerDash class="header__nav__hamburger"/>
             <HeaderNavDash class="header__nav__menu"/>
         </div>
-        <ButtonsLittle class="header__button">Déconnexion</ButtonsLittle>
+        <ButtonsLittle class="header__button" @click="logout">Déconnexion</ButtonsLittle>
     </header>
 </template>
 <style lang="scss" scoped>

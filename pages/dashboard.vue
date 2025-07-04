@@ -1,7 +1,8 @@
 <script setup>
 // Layout
 definePageMeta({
-    layout: "dash"
+    layout: "dash",
+    middleware: ['authenticated']
 })
 </script>
 <template>
