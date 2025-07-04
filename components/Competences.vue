@@ -1,6 +1,6 @@
 <script setup>
 // Data
-const { data: competences } = await useFetch('/api/competences')
+const { data: competences } = await useFetch('/api/competences', {key: 'competences'})
 const backend = computed(() => {
     return competences.value?.filter(competence => competence.categorie === "Backend")
 })
