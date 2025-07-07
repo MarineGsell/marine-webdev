@@ -1,4 +1,6 @@
 <script setup>
+import { de, id } from 'zod/v4/locales'
+
 const props = defineProps({
     imgSrc: {
         type: String,
@@ -27,8 +29,21 @@ const props = defineProps({
     admin: {
         type: Boolean,
         default: false
+    }, 
+    idCard: {
+        type: [String, Number],
+        default: null
     }
 })
+
+const emit = defineEmits(['open, delete'])
+const handleOpen = () => {
+    emit('open')
+}
+const handleDelete = () => {
+    emit('delete')
+}
+
 </script>
 <template>
     <div class="card">
@@ -56,9 +71,10 @@ const props = defineProps({
             </a>
         </div>
         <div class="card__buttons">
-            <ButtonsLittle>Modifier</ButtonsLittle>
-            <ButtonsLittle>Supprimer</ButtonsLittle>
+            <ButtonsLittle @click="handleOpen">Modifier</ButtonsLittle>
+            <ButtonsLittle @click="handleDelete">Supprimer</ButtonsLittle>
         </div>
+        {{ idCard }}
     </div>
 </template>
 <style lang="scss" scoped>
