@@ -1,10 +1,22 @@
 <script setup>
 const props = defineProps({
-    name: {
+    opinionId: {
+        type: [String, Number],
+        default: null
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
         type: String,
         required: true
     },
     job: {
+        type: String,
+        required: true
+    },
+    company: {
         type: String,
         required: true
     },
@@ -15,8 +27,24 @@ const props = defineProps({
     to: {
         type: String,
         default: ""
+    },
+    admin: {
+        type: Boolean,
+        default: false
     }
 })
+
+
+const emit = defineEmits(['validateOpinion', 'deleteOpinion', 'patchOpinion'])
+const handleValidate = () => {
+    emit('validateOpinion', props.opinionId)
+}
+const handleDelete = () => {
+    emit('deleteOpinion', props.opinionId)
+}
+const handlePatch = (opinionsForm) => {
+    emit('patchOpinion', opinionsForm)
+}
 </script>
 <template>
     <div class="card">
@@ -29,19 +57,24 @@ const props = defineProps({
                 <a
                     v-if="to !== ''"
                     :href="to" 
-                    :aria-label="`Page Linkedin de ${name}`"
-                    :title="`Page Linkedin de ${name}`"
+                    :aria-label="`Page Linkedin de ${firstName} ${lastName}`"
+                    :title="`Page Linkedin de ${firstName} ${lastName}`"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="card__person__name__link"
                 >            
-                    {{ name }}
+                    {{ firstName }} {{ lastName }}
                 </a>
-                <p v-else >{{ name }}</p>
+                <p v-else >{{ firstName }} {{ lastName }}</p>
             </h3>        
-            <p class="card__person__job">{{ job }}</p>
+            <p class="card__person__job">{{ job }} chez {{ company }} </p>
         </div>
         <p class="card__opinion">{{ opinion }}</p>
+        <div class="card__buttons" v-if="admin">
+            <ButtonsLittle @click="handleValidate">Valider</ButtonsLittle>
+            <ButtonsLittle @click="handlePatch">Modifier</ButtonsLittle>
+            <ButtonsLittle @click="handleDelete">Supprimer</ButtonsLittle>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -87,6 +120,16 @@ const props = defineProps({
     &__opinion {
         text-align: justify;
         @include font-p($text-color)
+    }
+    &__buttons {
+        width: 100%;
+        @include flex(row, center, center, $gap-list);
+        @include responsive-tablette {
+            @include flex(column, center, center, $gap-list);
+        }
+        @include responsive-mobile {
+            @include flex(column, center, center, $gap-list);
+        }
     }
 }
 </style>

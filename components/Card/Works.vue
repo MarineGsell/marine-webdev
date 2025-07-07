@@ -23,7 +23,7 @@ const props = defineProps({
     content: {
         type: String,
         default: ''
-    }
+    },
 })
 </script>
 <template>
@@ -139,6 +139,16 @@ const props = defineProps({
                         color: $main-color;
                     }
                 }
+            }
+        }
+        &__admin {
+            width: 100%;
+            @include flex(row, center, center, $gap-third-desktop);
+            @include responsive-tablette {
+                @include flex(column, center, center, $gap-third-tablette);
+            }
+            @include responsive-mobile {
+                @include flex(column, center, center, $gap-third-mobile);
             }
         }
     }

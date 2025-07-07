@@ -1,5 +1,14 @@
 <script setup>
-import opinions from "/data/opinions.js"
+const { data: opinions } = await useFetch('/api/opinions?isValidated=true', {key: 'opinions'})
+
+// Modale
+const modale = ref(false)
+const openModale = () => {
+    modale.value = true
+}
+const closeModale = () => {
+    modale.value = false
+}
 </script>
 <template>
     <section class="opinion">
@@ -10,19 +19,27 @@ import opinions from "/data/opinions.js"
                     v-for="opinion in opinions"
                     class="opinion__content__cards__card"
                     :key="opinion.id"
-                    :name="opinion.name"
+                    :firstName="opinion.firstName"
+                    :lastName="opinion.lastName"
                     :job="opinion.job"
+                    :company="opinion.company"
                     :to="opinion.link"
                     :opinion="opinion.opinion"
+                    :opinionId="opinion.id"
                 >
                     <NuxtImg 
-                        v-if="opinion.src" 
-                        :src="opinion.src" 
-                        :alt="opinion.alt" 
+                        v-if="opinion.imgSrc" 
+                        :src="opinion.imgSrc" 
+                        :alt="`Photo de ${opinion.firstName} ${opinion.lastName}`" 
                         class="opinion__content__cards__card__picture" 
                     />
                 </CardOpinion>
+                <ModaleMain 
+                    v-if="modale"
+                    @close="closeModale()"
+                />
             </div>
+            <ButtonsMain @click="openModale()">Laissez votre avis</ButtonsMain>
         </div>
     </section>
 </template>

@@ -2,14 +2,20 @@
 const props = defineProps ({
     to: {
         type: [String, Object],
-        required: true
+    },
+    type: {
+        type: String,
+        default: ''
     }
 });
 </script>
 <template>
-    <NuxtLink class="button" :to="to">
+    <NuxtLink v-if="type === ''" class="button" :to="to">
         <slot></slot>
     </NuxtLink>
+    <button v-else :type="type" class="button">
+        <slot></slot>
+    </button>
 </template>
 <style lang="scss" scoped>
 .button {

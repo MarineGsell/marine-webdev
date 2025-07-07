@@ -1,10 +1,15 @@
 <script setup>
 // Data
-import competences from "/data/competences.js";
-const frontend = competences.filter(competence => competence.categorie === "Frontend")
-const backend = competences.filter(competence => competence.categorie === "Backend")
-const outils = competences.filter(competence => competence.categorie === "Outils")
-// const rate = competence.map()
+const { data: competences } = await useFetch('/api/competences', {key: 'competences'})
+const backend = computed(() => {
+    return competences.value?.filter(competence => competence.categorie === "Backend")
+})
+const frontend = computed(() => {
+    return competences.value?.filter(competence => competence.categorie === "Frontend")
+})
+const outils = computed(() => {
+    return competences.value?.filter(competence => competence.categorie === "Outils")
+})
 
 </script>
 <template>
