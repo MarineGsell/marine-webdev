@@ -43,6 +43,13 @@
       "when": 1751898958222,
       "tag": "0005_fast_reptil",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1751919892604,
+      "tag": "0006_magenta_infant_terrible",
+      "breakpoints": true
     }
   ]
 }

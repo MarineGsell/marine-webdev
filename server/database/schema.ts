@@ -27,7 +27,7 @@ export const works = sqliteTable('works', {
   category: text('category').notNull(),
   description: text('description').notNull(),
   repo: text('repo').notNull(),
-  link: text('link').notNull()
+  link: text('link')
 })
 
 
