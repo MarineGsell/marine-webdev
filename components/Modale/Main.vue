@@ -3,6 +3,12 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
     emit('close')
 }
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button:''
+// })
 
 // Ajout d'opinion
 const addOpinion = async (opinionsForm) => {
@@ -13,6 +19,9 @@ const addOpinion = async (opinionsForm) => {
     .then(async () => {
         await refreshNuxtData('opinions')
         alert('Opinion ajouté avec succès, il sera visible après validation')
+        // notif.show = true
+        // notif.message = 'Opinion ajouté avec succès, il sera visible après validation'
+        // notif.button = 'OK'
         handleClose()
     })
     .catch((e) => alert(e))
@@ -31,6 +40,12 @@ const addOpinion = async (opinionsForm) => {
                     @submit="addOpinion"
                     :clearAfterSubmit="true"
                 >Envoyer mon avis</ModaleOpinionForm>
+                <!-- <Notif 
+                    v-if="notif.show"
+                    @close="notif.show = false"
+                    :message="notif.message"
+                    :button="notif.button"
+                /> -->
             </div>
         </div>
     </div>

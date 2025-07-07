@@ -4,6 +4,13 @@ import { DashboardWorksModale } from '#components'
 // Data
 const { data: works } = await useFetch('/api/works')
 
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button: ''
+// })
+
 // Modale
 const modale = ref(false)
 const currentWorkId = ref(null)
@@ -23,7 +30,9 @@ const addWork = async (worksForm) => {
     .then(async () => {
         await refreshNuxtData()
         alert('Projet ajouté avec succès')
-
+        // notif.show = true
+        // notif.message = 'Projet ajouté avec succès'
+        // notif.button = 'OK'
     })
     .catch((e) => alert(e))
 }
@@ -37,6 +46,9 @@ const deleteWork = async (id) => {
         .then(async () => {
             await refreshNuxtData()
             alert('Projet supprimé avec succès')
+            // notif.show = true
+            // notif.message = 'Projet supprimé avec succès'
+            // notif.button = 'OK'
         })
         .catch((e) => alert(e))
     }
@@ -72,6 +84,12 @@ const deleteWork = async (id) => {
             :workId="currentWorkId"
             @close="closeModale()"
         />
+        <!-- <Notif 
+            v-if="notif.show"
+            @close="notif.show = false"
+            :message="notif.message"
+            :button="notif.button"
+        /> -->
     </section>
 </template>
 <style lang="scss" scoped>

@@ -1,6 +1,7 @@
 <script setup>
 // Data
 const { data: opinions } = await useFetch('/api/opinions?isValidated=false', {key: 'opinions'})
+const { data: allOpinions } = await useFetch('/api/opinions?isValidated=true', {key: 'allOpinions'})
 
 // Modale
 const modale = ref(false)
@@ -13,6 +14,13 @@ const closeModale = () => {
     modale.value = false
 }
 
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button:''
+// })
+
 // Validation de l'avis
 const validateOpinion = async (opinionId) => {
     if (confirm('Êtes-vous sûr de vouloir valider cet avis ?')) {
@@ -23,6 +31,9 @@ const validateOpinion = async (opinionId) => {
         .then(async () => {
             await refreshNuxtData()
             alert('Avis validé avec succès')
+            // notif.show = true
+            // notif.message = 'Avis validé avec succès'
+            // notif.button = 'OK'
         })
         .catch((e) => alert(e))
     }
@@ -37,6 +48,9 @@ const deleteOpinion = async (opinionId) => {
         .then(async () => {
             await refreshNuxtData()
             alert('Avis supprimé avec succès')
+            // notif.show = true
+            // notif.message = 'Avis supprimé avec succès'
+            // notif.button = 'OK'
         })
         .catch((e) => alert(e))
     }
@@ -72,12 +86,44 @@ const deleteOpinion = async (opinionId) => {
             </CardOpinion>
         </div>
         <p v-else class="opinions__text">Vous n'avez aucun témoignage à valider</p>
+        <h2 class="opinions__title">Tous les témoignages</h2>
+        <div v-if="allOpinions && allOpinions.length > 0" class="opinions__cards">
+            <CardOpinion 
+                v-for="opinion in allOpinions" 
+                :key="opinion.id" 
+                :firstName="opinion.firstName" 
+                :lastName="opinion.lastName"
+                :job="opinion.job" 
+                :company="opinion.company"
+                :to="opinion.link"
+                :opinion="opinion.opinion" 
+                :admin="true"
+                :opinionId="opinion.id"
+                class="opinions__cards__card"
+                @validateOpinion="validateOpinion"
+                @deleteOpinion="deleteOpinion"
+                @patchOpinion="openModale(opinion.id)"
+            >
+                <NuxtImg 
+                    v-if="opinion.imgSrc" 
+                    :src="opinion.imgSrc" 
+                    :alt="`Photo de ${opinion.firstName} ${opinion.lastName}`"
+                    class="opinions__cards__card__picture"
+                />
+            </CardOpinion>
+        </div>
+        <p v-else class="opinions__text">Vous n'avez aucun témoignage</p>
         <DashboardOpinionsModale 
             v-if="modale" 
             :opinionId="currentOpinionId" 
             @close="closeModale"
         />
-        <p>Debug: {{ opinions }}</p>
+        <!-- <Notif 
+            v-if="notif.show"
+            @close="notif.show = false"
+            :message="notif.message"
+            :button="notif.button"
+        /> -->
     </section>
 </template>
 <style lang="scss" scoped>

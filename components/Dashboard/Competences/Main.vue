@@ -10,6 +10,13 @@ const closeModale = () => {
     modale.value = false
 }
 
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button:''
+// })
+
 // Data
 const { data: competences } = await useFetch('/api/competences', {key: 'competences'})
 const backend = computed(() => {
@@ -37,6 +44,9 @@ async function addCompetence() {
     .then(async () => {
         await refreshNuxtData()
         alert('Compétence ajoutée avec succès')
+        // notif.show = true
+        // notif.message = 'Compétence ajoutée avec succès'
+        // notif.button = 'OK'
         competencesForm.title = ''
         competencesForm.categorie = ''
         competencesForm.rate = ''
@@ -53,6 +63,10 @@ const deleteCompetence = async (id) => {
         .then(async () => {
             await refreshNuxtData()
             alert('Compétence supprimée avec succès')
+            // notif.show = true
+            // notif.message = 'Compétence supprimée avec succès'
+            // notif.button = 'OK'
+
         })
         .catch((e) => alert(e))
     }
@@ -111,6 +125,12 @@ const deleteCompetence = async (id) => {
             :competenceId="currentCompetenceId"
             @close="closeModale()"
         />
+        <!-- <Notif 
+            v-if="notif.show"
+            @close="notif.show = false"
+            :message="notif.message"
+            :button="notif.button"
+        /> -->
         <form class="competences__form" @submit.prevent="addCompetence">
             <div class="competences__form__column">
                 <div class="competences__form__column__field">

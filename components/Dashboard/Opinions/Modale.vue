@@ -10,6 +10,13 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
     emit('close')
 }
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button:''
+// })
+
 // Récupération des données pour la modale
 const { data: opinions } = await useFetch('/api/opinions?isValidated=false', {key: 'opinions'})
 
@@ -26,6 +33,9 @@ const patchOpinion = async (opinionsForm) => {
     .then(async () => {
         await refreshNuxtData()
         alert('Témoignage modifié avec succès')
+        // notif.show = true
+        // notif.message = 'Témoignage modifié avec succès'
+        // notif.button = 'OK'
         handleClose()
     })
     .catch((e) => alert(e))
@@ -43,6 +53,12 @@ const patchOpinion = async (opinionsForm) => {
                     :clearAfterSubmit="false"
                     @submit="patchOpinion"
                 >Valider l'avis</ModaleOpinionForm>
+                <!-- <Notif 
+                    v-if="notif.show"
+                    @close="notif.show = false"
+                    :message="notif.message"
+                    :button="notif.button"
+                /> -->
             </div>
         </div>
     </div>

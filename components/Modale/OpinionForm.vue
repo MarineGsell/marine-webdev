@@ -11,6 +11,12 @@ const props = defineProps({
         default: true
     }
 })
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button: ''
+// })
 
 // ✨ Création des variables réactives pour chaque champ
 const opinionsForm = reactive({
@@ -134,6 +140,9 @@ const handleFileUpload = (event) => {
         const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
         if (!validTypes.includes(file.type)) {
             alert('⚠️ Veuillez sélectionner une image (JPEG, PNG ou WebP)')
+            // notif.show = true
+            // notif.message = '⚠️ Veuillez sélectionner une image (JPEG, PNG ou WebP)'
+            // notif.button = 'OK'
             event.target.value = '' // Reset l'input
             return
         }
@@ -142,6 +151,9 @@ const handleFileUpload = (event) => {
         const maxSize = 5 * 1024 * 1024 // 5MB en bytes
         if (file.size > maxSize) {
             alert('⚠️ L\'image doit faire moins de 5MB')
+            // notif.show = true
+            // notif.message = '⚠️ L\'image doit faire moins de 5MB'
+            // notif.button = 'OK'
             event.target.value = '' // Reset l'input
             return
         }
@@ -222,6 +234,9 @@ const handleSubmit = () => {
    if (!validateForm()) {
         console.log('❌ Formulaire invalide')
         alert('Veuillez corriger les erreurs avant de continuer')
+        // notif.show = true
+        // notif.message = 'Veuillez corriger les erreurs avant de continuer'
+        // notif.button = 'OK'
         return
     } else {
         emit('submit', opinionsForm)
@@ -363,6 +378,12 @@ const handleSubmit = () => {
         </div>
         <ButtonsMain type="submit"><slot></slot></ButtonsMain>
     </form>
+    <!-- <Notif 
+        v-if="notif.show"
+        @close="notif.show = false"
+        :message="notif.message"
+        :button="notif.button"
+    /> -->
 </template>
 <style lang="scss" scoped>
 .form {

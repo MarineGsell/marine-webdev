@@ -10,6 +10,13 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
     emit('close')
 }
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button: ''
+// })
+
 // Récupération des données pour la modale
 const { data: works } = await useFetch('/api/works', {key: 'works'})
 
@@ -18,7 +25,6 @@ const currentWorks = computed(() => {
 })
 
 // Modification du projet
-// Ajout de projet 
 const patchWork = async (worksForm) => {
         $fetch(`/api/works/${props.workId}`, {
         method: 'PATCH',
@@ -27,6 +33,9 @@ const patchWork = async (worksForm) => {
     .then(async () => {
         await refreshNuxtData()
         alert('Projet modifié avec succès')
+        // notif.show = true
+        // notif.message = 'Projet modifié avec succès'
+        // notif.button = 'OK'
         handleClose()
 
     })
@@ -46,6 +55,12 @@ const patchWork = async (worksForm) => {
                     :clearAfterSubmit="false"
                     @submit="patchWork"
                 >Modifier un projet</DashboardWorksForm>
+                <!-- <Notif 
+                    v-if="notif.show"
+                    @close="notif.show = false"
+                    :message="notif.message"
+                    :button="notif.button"
+                /> -->
             </div>
         </div>
     </div>

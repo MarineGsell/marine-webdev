@@ -14,6 +14,13 @@ const props = defineProps({
         validator: (value) => ['default', 'modal'].includes(value)
     }
 })
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button: ''
+// })
+
 // 📥 Références réactives pour les champs du formulaire
 const worksForm = reactive({
     title: props.initialData.title || '',
@@ -227,6 +234,9 @@ const handleSubmit = () => {
    if (!validateForm()) {
         console.log('❌ Formulaire invalide')
         alert('Veuillez corriger les erreurs avant de continuer')
+        // notif.show = true
+        // notif.message = 'Veuillez corriger les erreurs avant de continuer'
+        // notif.button = 'OK'
         return
     } else {
         emit('submit', worksForm)
@@ -245,147 +255,155 @@ const handleSubmit = () => {
 
 </script>
 <template>
-    <form class="form" @submit.prevent="handleSubmit">
-        <div class="form__row">
-            <div class="form__row__field">
-                <label class="form__row__field__label">Titre du projet</label>
-                <input 
-                type="text" 
-                v-model="worksForm.title" 
-                @blur="validateTitle()"
-                @input="validateTitle()"
-                :class="{
-                    'error': errors.title,
-                    'form__row__field__input--modal': variant === 'modal'
-                }"
-                class="form__row__field__input"
-                >
-                <p v-if="errors.title" class="form__row__field__error">{{ errors.title }}</p>
-            </div>
-            <div class="form__row__field">
-                <label class="form__row__field__label">Catégorie</label>
-                <select
-                    v-model="worksForm.category" 
-                    @blur="validateCategory()"
-                    @input="validateCategory()"
+    <div>
+        <form class="form" @submit.prevent="handleSubmit">
+            <div class="form__row">
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Titre du projet</label>
+                    <input 
+                    type="text" 
+                    v-model="worksForm.title" 
+                    @blur="validateTitle()"
+                    @input="validateTitle()"
                     :class="{
-                        'error': errors.category,
-                        'form__row__field__select--modal': variant === 'modal'
-                    }" 
-                    class="form__row__field__select"
-                >
-                    <option value="">Choisi une option</option>
-                    <option value="Frontend">Frontend</option>
-                    <option value="Backend">Backend</option>
-                    <option value="Performances & SEO">Performances & SEO</option>
-                </select>
-                <p v-if="errors.category" class="form__row__field__error">{{ errors.category }}</p>
+                        'error': errors.title,
+                        'form__row__field__input--modal': variant === 'modal'
+                    }"
+                    class="form__row__field__input"
+                    >
+                    <p v-if="errors.title" class="form__row__field__error">{{ errors.title }}</p>
+                </div>
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Catégorie</label>
+                    <select
+                        v-model="worksForm.category" 
+                        @blur="validateCategory()"
+                        @input="validateCategory()"
+                        :class="{
+                            'error': errors.category,
+                            'form__row__field__select--modal': variant === 'modal'
+                        }" 
+                        class="form__row__field__select"
+                    >
+                        <option value="">Choisi une option</option>
+                        <option value="Frontend">Frontend</option>
+                        <option value="Backend">Backend</option>
+                        <option value="Performances & SEO">Performances & SEO</option>
+                    </select>
+                    <p v-if="errors.category" class="form__row__field__error">{{ errors.category }}</p>
+                </div>
             </div>
-        </div>
-        <div class="form__row">
-            <div class="form__row__field">
-                <label class="form__row__field__label">Photo</label>
-                <input 
-                    type="file" 
-                    @change="handleFileUpload"
-                    accept="image/jpeg,image/jpg,image/png,image/webp"
-                    id="photo-input"
-                    class="form__row__field__inputFile"
-                >
-                <button 
-                    type="button" 
-                    @click="triggerFileInput"
-                    :class="[
-                        'form__row__field__customButton',
-                        {'form__row__field__customButton--modal': variant === 'modal'}
-                    ]"
-                >
-                    <SvgUpload class="form__row__field__customButton__icon"/>
-                    {{ worksForm.imgSrc ? worksForm.imgSrc.name : 'Choisir une photo' }}
-                </button>
-                <!-- 🖼️ Zone de prévisualisation -->
-                <div v-if="worksForm.photoPreview" class="form__row__field__preview">
-                    <div class="form__row__field__preview__container">
-                        <img :src="worksForm.photoPreview" alt="Aperçu" class="form__row__field__preview__container__image" />
-                        <div class="form__row__field__preview__container__overlay">
-                            <p class="form__row__field__preview__container__overlay__name">{{ worksForm.imgSrc.name }}</p>
-                            <ButtonsLittle 
-                                type="button"
-                                @click="removePhoto"
-                                class="form__row__field__preview__container__overlay__remove"
-                                title="Supprimer la photo"
-                            >
-                                Supprimer la photo
-                            </ButtonsLittle>
+            <div class="form__row">
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Photo</label>
+                    <input 
+                        type="file" 
+                        @change="handleFileUpload"
+                        accept="image/jpeg,image/jpg,image/png,image/webp"
+                        id="photo-input"
+                        class="form__row__field__inputFile"
+                    >
+                    <button 
+                        type="button" 
+                        @click="triggerFileInput"
+                        :class="[
+                            'form__row__field__customButton',
+                            {'form__row__field__customButton--modal': variant === 'modal'}
+                        ]"
+                    >
+                        <SvgUpload class="form__row__field__customButton__icon"/>
+                        {{ worksForm.imgSrc ? worksForm.imgSrc.name : 'Choisir une photo' }}
+                    </button>
+                    <!-- 🖼️ Zone de prévisualisation -->
+                    <div v-if="worksForm.photoPreview" class="form__row__field__preview">
+                        <div class="form__row__field__preview__container">
+                            <img :src="worksForm.photoPreview" alt="Aperçu" class="form__row__field__preview__container__image" />
+                            <div class="form__row__field__preview__container__overlay">
+                                <p class="form__row__field__preview__container__overlay__name">{{ worksForm.imgSrc.name }}</p>
+                                <ButtonsLittle 
+                                    type="button"
+                                    @click="removePhoto"
+                                    class="form__row__field__preview__container__overlay__remove"
+                                    title="Supprimer la photo"
+                                >
+                                    Supprimer la photo
+                                </ButtonsLittle>
+                            </div>
                         </div>
                     </div>
+                    <p v-if="errors.imgSrc" class="form__row__field__error">{{ errors.imgSrc }}</p>
                 </div>
-                <p v-if="errors.imgSrc" class="form__row__field__error">{{ errors.imgSrc }}</p>
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Description alternative</label>
+                    <input 
+                        type="text" 
+                        v-model="worksForm.imgAlt" 
+                        @blur="validateImgAlt()"
+                        @input="validateImgAlt()"
+                        :class="{
+                            'error': errors.imgAlt,
+                            'form__row__field__input--modal': variant === 'modal'
+                        }"
+                        class="form__row__field__input"
+                    >
+                    <p v-if="errors.imgAlt" class="form__row__field__error">{{ errors.imgAlt }}</p>
+                </div>
             </div>
-            <div class="form__row__field">
-                <label class="form__row__field__label">Description alternative</label>
-                <input 
-                    type="text" 
-                    v-model="worksForm.imgAlt" 
-                    @blur="validateImgAlt()"
-                    @input="validateImgAlt()"
+            <div class="form__row">
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Lien Github</label>
+                    <input 
+                        type="text" 
+                        v-model="worksForm.repo" 
+                        @blur="validateRepo()"
+                        @input="validateRepo()"
+                        :class="{
+                            'error': errors.repo,
+                            'form__row__field__input--modal': variant === 'modal'
+                        }"
+                        class="form__row__field__input"
+                    >
+                    <p v-if="errors.repo" class="form__row__field__error">{{ errors.repo }}</p>
+                </div>
+                <div class="form__row__field">
+                    <label class="form__row__field__label">Lien du site</label>
+                    <input 
+                        type="text"
+                        v-model="worksForm.link" 
+                        @blur="validateLink()"
+                        @input="validateLink()"
+                        :class="{
+                            'error': errors.link,
+                            'form__row__field__input--modal': variant === 'modal'
+                        }" 
+                        class="form__row__field__input"
+                    >
+                    <p v-if="errors.link" class="form__row__field__error">{{ errors.link }}</p>
+                </div>
+            </div>
+            <div class="form__description">
+                <label for="" class="form__description__label">Description du projet</label>
+                <textarea 
+                    v-model="worksForm.description" 
+                    @blur="validateDescription()"
+                    @input="validateDescription()"
                     :class="{
-                        'error': errors.imgAlt,
-                        'form__row__field__input--modal': variant === 'modal'
+                        'error': errors.description,
+                        'form__description__textarea--modal': variant === 'modal'
                     }"
-                    class="form__row__field__input"
-                >
-                <p v-if="errors.imgAlt" class="form__row__field__error">{{ errors.imgAlt }}</p>
-            </div>
-        </div>
-        <div class="form__row">
-            <div class="form__row__field">
-                <label class="form__row__field__label">Lien Github</label>
-                <input 
-                    type="text" 
-                    v-model="worksForm.repo" 
-                    @blur="validateRepo()"
-                    @input="validateRepo()"
-                    :class="{
-                        'error': errors.repo,
-                        'form__row__field__input--modal': variant === 'modal'
-                    }"
-                    class="form__row__field__input"
-                >
-                <p v-if="errors.repo" class="form__row__field__error">{{ errors.repo }}</p>
-            </div>
-            <div class="form__row__field">
-                <label class="form__row__field__label">Lien du site</label>
-                <input 
-                    type="text"
-                    v-model="worksForm.link" 
-                    @blur="validateLink()"
-                    @input="validateLink()"
-                    :class="{
-                        'error': errors.link,
-                        'form__row__field__input--modal': variant === 'modal'
-                    }" 
-                    class="form__row__field__input"
-                >
-                <p v-if="errors.link" class="form__row__field__error">{{ errors.link }}</p>
-            </div>
-        </div>
-        <div class="form__description">
-            <label for="" class="form__description__label">Description du projet</label>
-            <textarea 
-                v-model="worksForm.description" 
-                @blur="validateDescription()"
-                @input="validateDescription()"
-                :class="{
-                    'error': errors.description,
-                    'form__description__textarea--modal': variant === 'modal'
-                }"
-                class="form__description__textarea"
-            ></textarea>
-            <p v-if="errors.description" class="form__description__error">{{ errors.description }}</p>
-        </div>    
-        <ButtonsMain type="submit"><slot></slot></ButtonsMain>
-    </form>
+                    class="form__description__textarea"
+                ></textarea>
+                <p v-if="errors.description" class="form__description__error">{{ errors.description }}</p>
+            </div>    
+            <ButtonsMain type="submit"><slot></slot></ButtonsMain>
+        </form>
+        <!-- <Notif 
+            v-if="notif.show"
+            @close="notif.show = false"
+            :message="notif.message"
+            :button="notif.button"
+        /> -->
+    </div>
 </template>
 <style lang="scss" scoped>
 .form {

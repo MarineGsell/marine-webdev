@@ -10,6 +10,14 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
     emit('close')
 }
+
+// Notification
+// const notif = reactive({
+//     show: false,
+//     message: '',
+//     button:''
+// })
+
 // Récupération des données pour la modale
 const { data: competences } = await useFetch('/api/competences', { key: 'competences' })
 
@@ -32,6 +40,10 @@ async function patchCompetence() {
     .then(async () => {
         await refreshNuxtData()
         alert('Compétence modifiée avec succès')
+        // notif.show = true
+        // notif.message = 'Compétence modifiée avec succès'
+        // notif.button = 'OK'
+
         competencesForm.title = currentCompetence.value?.title || ''
         competencesForm.categorie = currentCompetence.value?.categorie || ''
         competencesForm.rate = currentCompetence.value?.rate || ''
@@ -78,6 +90,12 @@ async function patchCompetence() {
                     </div>
                     <ButtonsMain type="submit">Modifier la compétence</ButtonsMain>
                 </form>
+            <!-- <Notif 
+                v-if="notif.show"
+                @close="notif.show = false"
+                :message="notif.message"
+                :button="notif.button"
+            /> -->
             </div>
         </div>
     </div>
