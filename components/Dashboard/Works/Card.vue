@@ -57,6 +57,7 @@ const handleDelete = () => {
                 <SvgGithub class="card__links__link__icon"/>
             </a>
             <a 
+                v-if="link !== ''"
                 class="card__links__link" 
                 :href="link" 
                 target="_blank"
