@@ -14,8 +14,21 @@ const openModale = (id) => {
 const closeModale = () => {
     modale.value = false
 }
+// Ajout de projet 
+const addWork = async (worksForm) => {
+        $fetch('/api/works', {
+        method: 'POST',
+        body: worksForm
+    })
+    .then(async () => {
+        await refreshNuxtData()
+        alert('Projet ajouté avec succès')
 
-// Suppression de compétence
+    })
+    .catch((e) => alert(e))
+}
+
+// Suppression de projet
 const deleteWork = async (id) => {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
         $fetch(`/api/works/${id}`, {
@@ -49,7 +62,11 @@ const deleteWork = async (id) => {
                 @delete="deleteWork(work.id)"
             />
         </div>
-        <DashboardWorksForm />
+        <DashboardWorksForm 
+            @submit="addWork"
+            :clearAfterSubmit="true"
+            class="works__form"
+        >Ajouter un projet</DashboardWorksForm>
         <DashboardWorksModale 
             v-if="modale"
             :workId="currentWorkId"
@@ -78,6 +95,9 @@ const deleteWork = async (id) => {
             grid-template-columns: repeat(1, 1fr);
             gap: $gap-third-mobile;
         }
+    }
+    &__form {
+        width: 70%;
     }
 
 }

@@ -6,7 +6,7 @@ export default eventHandler(async (event) => {
     throw createError({
       statusCode: 401,
       statusMessage: 'Unauthorized',
-      message: 'You must be logged in to update a competence.',
+      message: 'You must be logged in to update a project.',
     })
   }
   const works = await useDrizzle().update(tables.works).set({

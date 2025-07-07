@@ -8,15 +8,15 @@ export default eventHandler(async (event) => {
     })
   }
 
-  const deletedWork = await useDrizzle().delete(tables.works).where(and(
-    eq(tables.works.id, Number(id))
+  const deletedOpinion = await useDrizzle().delete(tables.opinions).where(
+    eq(tables.opinions.id, Number(id)
   )).returning().get()
 
-  if (!deletedWork) {
+  if (!deletedOpinion) {
     throw createError({
       statusCode: 404,
-      message: 'Work not found'
+      message: 'Opinion not found'
     })
   }
-  return deletedWork
+  return deletedOpinion
 })

@@ -10,7 +10,7 @@ definePageMeta({
         <div class="dashboard__content">
             <DashboardHeader />
             <DashboardCompetencesMain />
-            <DashboardOpinions />
+            <DashboardOpinionsMain />
             <DashboardWorksMain />
         </div>
     </main>

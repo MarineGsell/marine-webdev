@@ -15,7 +15,7 @@ export default eventHandler(async (event) => {
   if (!deletedCompetence) {
     throw createError({
       statusCode: 404,
-      message: 'Todo not found'
+      message: 'Competence not found'
     })
   }
   return deletedCompetence

@@ -12,10 +12,11 @@ export const opinions = sqliteTable('opinions', {
   firstName: text('firstName').notNull(),
   lastName: text('lastName').notNull(),
   job: text('job').notNull(),
-  imgSrc: text('imgSrc').notNull(),
-  imgAlt: text('imgAlt').notNull(),
-  link: text('link').notNull(),
-  opinion: text('opinion').notNull()
+  company: text('company').notNull(),
+  imgSrc: text('imgSrc'),
+  link: text('link'),
+  opinion: text('opinion').notNull(),
+  isValidated: integer('isValidated', { mode: 'boolean' }).default(false).notNull()
 })
 
 export const works = sqliteTable('works', {

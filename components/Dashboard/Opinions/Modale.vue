@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-    competenceId: {
+    opinionId: {
         type: [String, Number],
         default: null
     }
@@ -11,30 +11,21 @@ const handleClose = () => {
     emit('close')
 }
 // Récupération des données pour la modale
-const { data: competences } = await useFetch('/api/competences', { key: 'competences' })
+const { data: opinions } = await useFetch('/api/opinions?isValidated=false', {key: 'opinions'})
 
-const currentCompetence = computed(() => {
-    return competences.value?.find(competence => competence.id === props.competenceId)
+const currentOpinion = computed(() => {
+    return opinions.value?.find(opinion => opinion.id === props.opinionId)
 })
 
-// Formulaire de modification
-const competencesForm = reactive({
-    title: currentCompetence.value?.title || '',
-    categorie: currentCompetence.value?.categorie || '',
-    rate: currentCompetence.value?.rate || ''
-})
-
-async function patchCompetence() {
-    $fetch(`/api/competences/${props.competenceId}`, {
+// Modification du témoignage
+const patchOpinion = async (opinionsForm) => {
+        $fetch(`/api/opinions/${props.opinionId}`, {
         method: 'PATCH',
-        body: competencesForm
+        body: opinionsForm
     })
     .then(async () => {
         await refreshNuxtData()
-        alert('Compétence modifiée avec succès')
-        competencesForm.title = currentCompetence.value?.title || ''
-        competencesForm.categorie = currentCompetence.value?.categorie || ''
-        competencesForm.rate = currentCompetence.value?.rate || ''
+        alert('Témoignage modifié avec succès')
         handleClose()
     })
     .catch((e) => alert(e))
@@ -46,38 +37,12 @@ async function patchCompetence() {
         <div class="modale__window">
             <div class="modale__window__button" @click="handleClose">X</div>
             <div class="modale__window__content">
-                <h3 class="modale__window__content__title">Modifier une compétence</h3>
-                <form class="modale__window__content__form" @submit.prevent="patchCompetence">
-                    <div class="modale__window__content__form__column">
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Nom de la compétence</label>
-                            <input 
-                                type="text" 
-                                v-model="competencesForm.title"
-                                class="modale__window__content__form__column__field__input"
-                            >
-                        </div>
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Catégorie</label>
-                            <select class="modale__window__content__form__column__field__select" v-model="competencesForm.categorie">
-                                <option value="Frontend">Frontend</option>
-                                <option value="Backend">Backend</option>
-                                <option value="Outils">Outils</option>
-                            </select>
-                        </div>
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Niveau</label>
-                            <input 
-                                type="number" 
-                                v-model="competencesForm.rate"
-                                class="modale__window__content__form__column__field__input"
-                                min="1"
-                                max="5"
-                            >
-                        </div>
-                    </div>
-                    <ButtonsMain type="submit">Modifier la compétence</ButtonsMain>
-                </form>
+                <h3 class="modale__window__content__title">Modifier un Témoignage</h3>
+                <ModaleOpinionForm 
+                    :initialData="currentOpinion"
+                    :clearAfterSubmit="false"
+                    @submit="patchOpinion"
+                >Valider l'avis</ModaleOpinionForm>
             </div>
         </div>
     </div>

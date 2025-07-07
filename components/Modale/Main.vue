@@ -3,6 +3,21 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
     emit('close')
 }
+
+// Ajout d'opinion
+const addOpinion = async (opinionsForm) => {
+        $fetch('/api/opinions', {
+        method: 'POST',
+        body: opinionsForm
+    })
+    .then(async () => {
+        await refreshNuxtData('opinions')
+        alert('Opinion ajouté avec succès, il sera visible après validation')
+        handleClose()
+    })
+    .catch((e) => alert(e))
+}
+
 </script>
 <template>
     <div class="modale">
@@ -12,7 +27,10 @@ const handleClose = () => {
             <div class="modale__window__content">
                 <h3 class="modale__window__content__title">Laissez moi votre avis</h3>
                 <p class="modale__window__content__text">Nous avons travailler ensemble? N'hésitez pas à me donner votre avis</p>
-                <ModaleOpinionForm />
+                <ModaleOpinionForm 
+                    @submit="addOpinion"
+                    :clearAfterSubmit="true"
+                >Envoyer mon avis</ModaleOpinionForm>
             </div>
         </div>
     </div>

@@ -1,89 +1,110 @@
 <script setup>
-import { ButtonsLittle } from '#components'
+import { fi } from 'zod/v4/locales'
+
+const props = defineProps({
+    initialData: {
+        type: Object,
+        default: () => ({})
+    },
+    clearAfterSubmit: {
+        type: Boolean,
+        default: true
+    }
+})
 
 // ✨ Création des variables réactives pour chaque champ
-const prenom = ref('')        // Stocke le prénom
-const nom = ref('')           // Stocke le nom  
-const poste = ref('')         // Stocke le poste
-const entreprise = ref('')    // Stocke l'entreprise
-const linkedin = ref('')      // Stocke le lien LinkedIn
-const photo = ref(null)       // Stocke le fichier photo
-const photoPreview = ref(null) // Stocke l'URL de prévisualisation
-const temoignage = ref('')    // Stocke le témoignage
+const opinionsForm = reactive({
+    firstName: props.initialData.firstName || '',
+    lastName: props.initialData.lastName || '',
+    job: props.initialData.job || '',
+    company: props.initialData.company || '',
+    link: props.initialData.link || '',
+    opinion: props.initialData.opinion || '',
+    imgSrc: props.initialData.imgSrc || '',
+    photoPreview: props.initialData.imgSrc || null,
+})
 
-// 📝 Variable pour afficher les données (pour comprendre)
-const showData = ref(false)
+// Surveillance des changements pour le formulaire
+watch(() => props.initialData, (newData) => {
+    opinionsForm.firstName = newData?.firstName || ''
+    opinionsForm.lastName = newData?.lastName || ''
+    opinionsForm.job = newData?.job || ''
+    opinionsForm.company = newData?.company || null
+    opinionsForm.link = newData?.link || ''
+    opinionsForm.opinion = newData?.opinion || ''
+    opinionsForm.imgSrc = newData?.imgSrc || ''
+}, { immediate: true })
 
 // 🚨 Variables pour stocker les erreurs
 const errors = ref({
-    prenom: '',
-    nom: '',
-    poste: '',
-    entreprise: '',
-    linkedin: '',
-    temoignage: ''
+    firstName: '',
+    lastName: '',
+    job: '',
+    company: '',
+    link: '',
+    opinion: ''
 })
 
 // 🔍 Fonctions de validation pour chaque champ
 const validatePrenom = () => {
-    if (!prenom.value.trim()) {
-        errors.value.prenom = 'Vous devez indiquer votre prénom'
+    if (!opinionsForm.firstName.trim()) {
+        errors.value.firstName = 'Vous devez indiquer votre prénom'
         return false
     }
-    if (prenom.value.trim().length < 2) {
-        errors.value.prenom = 'Le prénom doit contenir au moins 2 caractères'
+    if (opinionsForm.firstName.trim().length < 2) {
+        errors.value.firstName = 'Le prénom doit contenir au moins 2 caractères'
         return false
     }
-    errors.value.prenom = ''
+    errors.value.firstName = ''
     return true
 }
 const validateNom = () => {
-    if (!nom.value.trim()) {
-        errors.value.nom = 'Vous devez indiquer votre nom'
+    if (!opinionsForm.lastName.trim()) {
+        errors.value.lastName = 'Vous devez indiquer votre nom'
         return false
     }
-    if (nom.value.trim().length < 2) {
-        errors.value.nom = 'Le nom doit contenir au moins 2 caractères'
+    if (opinionsForm.lastName.trim().length < 2) {
+        errors.value.lastName = 'Le nom doit contenir au moins 2 caractères'
         return false
     }
-    errors.value.nom = ''
+    errors.value.lastName = ''
     return true
 }
 const validatePoste = () => {
-    if (!poste.value.trim()) {
-        errors.value.poste = 'Vous devez indiquer votre poste'
+    if (!opinionsForm.job.trim()) {
+        errors.value.job = 'Vous devez indiquer votre poste'
         return false
     }
-    errors.value.poste = ''
+    errors.value.job = ''
     return true
 }
 const validateEntreprise = () => {
-    if (!entreprise.value.trim()) {
-        errors.value.entreprise = 'Vous devez indiquer l\'entreprise pour laquelle vous travaillez'
+    if (!opinionsForm.company.trim()) {
+        errors.value.company = 'Vous devez indiquer l\'entreprise pour laquelle vous travaillez'
         return false
     }
-    errors.value.entreprise = ''
+    errors.value.company = ''
     return true
 }
 const validateLinkedin = () => {
     // LinkedIn est optionnel, mais s'il est rempli, il doit être valide
-    if (linkedin.value.trim() && !isValidLinkedInUrl(linkedin.value)) {
-        errors.value.linkedin = 'Veuillez entrer une URL LinkedIn valide'
+    if (opinionsForm.link.trim() && !isValidLinkedInUrl(opinionsForm.link)) {
+        errors.value.link = 'Veuillez entrer une URL LinkedIn valide'
         return false
     }
-    errors.value.linkedin = ''
+    errors.value.link = ''
     return true
 }
 const validateTemoignage = () => {
-    if (!temoignage.value.trim()) {
-        errors.value.temoignage = 'Vous devez écrire un témoignage'
+    if (!opinionsForm.opinion.trim()) {
+        errors.value.opinion = 'Vous devez écrire un témoignage'
         return false
     }
-    if (temoignage.value.trim().length < 10) {
-        errors.value.temoignage = 'Le témoignage doit contenir au moins 10 caractères'
+    if (opinionsForm.opinion.trim().length < 10) {
+        errors.value.opinion = 'Le témoignage doit contenir au moins 10 caractères'
         return false
     }
-    errors.value.temoignage = ''
+    errors.value.opinion = ''
     return true
 }
 
@@ -92,9 +113,6 @@ const isValidLinkedInUrl = (url) => {
     const linkedinRegex = /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
     return linkedinRegex.test(url)
 }
-
-// 🎯 État de validation (a-t-on essayé de valider ?)
-const hasTriedSubmit = ref(false)
 
 // ✅ Fonction pour valider tout le formulaire
 const validateForm = () => {
@@ -107,16 +125,6 @@ const validateForm = () => {
     
     return isPrenom && isNom && isPoste && isEntreprise && isLinkedin && isTemoignage
 }
-
-// 📊 Propriété calculée pour savoir si le formulaire est valide
-const isFormValid = computed(() => {
-    return prenom.value.trim() && 
-           nom.value.trim() && 
-           poste.value.trim() && 
-           entreprise.value.trim() && 
-           temoignage.value.trim().length >= 10 &&
-           (!linkedin.value.trim() || isValidLinkedInUrl(linkedin.value))
-})
 
 // 📁 Fonction pour gérer l'upload de fichier
 const handleFileUpload = (event) => {
@@ -138,8 +146,8 @@ const handleFileUpload = (event) => {
             return
         }
         
-        // Stockage du fichier
-        photo.value = file
+        // Conversion en Base64 pour la base de données
+        convertFileToBase64(file)
         
         // Création de l'aperçu
         createImagePreview(file)
@@ -152,12 +160,36 @@ const handleFileUpload = (event) => {
     }
 }
 
+// 🔄 Fonction pour convertir le fichier en Base64
+const convertFileToBase64 = (file) => {
+    const reader = new FileReader()
+    
+    reader.onload = (e) => {
+        const base64String = e.target.result
+        
+        // Stocker le Base64 pour la base de données
+        opinionsForm.imgSrc = base64String
+        
+        // Stocker aussi pour l'aperçu
+        opinionsForm.photoPreview = base64String
+        
+        console.log('✅ Fichier converti en Base64')
+    }
+    
+    reader.onerror = (error) => {
+        console.error('❌ Erreur lors de la conversion:', error)
+        alert('Erreur lors du traitement de l\'image')
+    }
+    
+    reader.readAsDataURL(file)
+}
+
 // 🖼️ Fonction pour créer l'aperçu de l'image
 const createImagePreview = (file) => {
     const reader = new FileReader()
     
     reader.onload = (e) => {
-        photoPreview.value = e.target.result
+        opinionsForm.photoPreview = e.target.result
     }
     
     reader.readAsDataURL(file)
@@ -165,8 +197,8 @@ const createImagePreview = (file) => {
 
 // 🗑️ Fonction pour supprimer la photo
 const removePhoto = () => {
-    photo.value = null
-    photoPreview.value = null
+    opinionsForm.imgSrc = null
+    opinionsForm.photoPreview = null
     
     // Reset l'input file
     const fileInput = document.querySelector('input[type="file"]')
@@ -183,149 +215,27 @@ const triggerFileInput = () => {
     fileInput?.click()
 }
 
-// 🔄 États de soumission
-const isSubmitting = ref(false)    // Formulaire en cours d'envoi
-const isSubmitted = ref(false)     // Formulaire envoyé avec succès
-const submitError = ref('')        // Message d'erreur d'envoi
+// Soumission du formulaire
+const emit = defineEmits(['submit'])
 
-// 🎯 Fonction appelée lors de la soumission
-const handleSubmit = async (event) => {
-    event.preventDefault() // Empêche le rechargement de page
-    hasTriedSubmit.value = true
-    submitError.value = '' // Reset l'erreur précédente
-    
-    // 1️⃣ Validation du formulaire
-    if (!validateForm()) {
+const handleSubmit = () => {
+   if (!validateForm()) {
         console.log('❌ Formulaire invalide')
         alert('Veuillez corriger les erreurs avant de continuer')
         return
-    }
-    
-    // 2️⃣ Préparation de l'envoi
-    isSubmitting.value = true
-    console.log('🚀 Début de la soumission...')
-    
-    try {
-        // 3️⃣ Préparation des données
-        const formData = prepareFormData()
-        
-        // 4️⃣ Envoi réel au serveur
-        const result = await submitToServer(formData)   
-
-        // 5️⃣ Succès !
-        console.log('✅ Témoignage envoyé avec succès !')
-        isSubmitted.value = true
-        
-        // Optionnel: reset du formulaire après 3 secondes
-        setTimeout(() => {
-            resetForm()
-        }, 3000)
-        
-    } catch (error) {
-        // 6️⃣ Gestion des erreurs
-        console.error('❌ Erreur lors de l\'envoi:', error)
-        submitError.value = 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.'
-        
-    } finally {
-        // 7️⃣ Fin du chargement
-        isSubmitting.value = false
-    }
-}
-
-// 🚀 Fonction pour envoyer les données au serveur
-async function submitToServer(formData) {
-    try {
-        const response = await $fetch('/api/opinions', {
-            method: 'POST',
-            body: formData
-        })
-        
-        // Vérifier que la réponse indique un succès
-        if (!response.success) {
-            throw new Error(response.message || 'Erreur serveur')
+    } else {
+        emit('submit', opinionsForm)
+        if (props.clearAfterSubmit) {
+            opinionsForm.title = ''
+            opinionsForm.category = ''
+            opinionsForm.imgSrc = ''
+            opinionsForm.photoPreview = null
+            opinionsForm.imgAlt = ''
+            opinionsForm.repo = ''
+            opinionsForm.link = ''
+            opinionsForm.description = ''
         }
-        
-        return response
-    } catch (error) {
-        console.error('❌ Erreur API:', error)
-        
-        // Gestion spécifique des erreurs
-        if (error.status === 400) {
-            throw new Error('Données invalides: ' + (error.data?.message || error.message))
-        } else if (error.status === 500) {
-            throw new Error('Erreur serveur, veuillez réessayer plus tard')
-        } else if (!navigator.onLine) {
-            throw new Error('Pas de connexion internet')
-        } else {
-            throw new Error('Erreur de connexion au serveur')
-        }
-    }
-}
-
-// 📦 Fonction pour préparer les données d'envoi
-const prepareFormData = () => {
-    const formData = new FormData()
-    
-    // Ajout des champs texte
-    formData.append('prenom', prenom.value.trim())
-    formData.append('nom', nom.value.trim())
-    formData.append('poste', poste.value.trim())
-    formData.append('entreprise', entreprise.value.trim())
-    formData.append('temoignage', temoignage.value.trim())
-    
-    // Ajout de la photo si elle existe
-    if (photo.value) {
-        formData.append('photo', photo.value)
-    }
-
-    // Ajout de Linkedin s'il existe
-    if (linkedin.value.trim()) {
-        formData.append('linkedin', linkedin.value.trim())
-    }
-    
-    console.log('📦 Données préparées pour envoi')
-    
-    // Debug: afficher le contenu de FormData
-    for (let [key, value] of formData.entries()) {
-        if (value instanceof File) {
-            console.log(`${key}:`, `[Fichier: ${value.name}, ${value.size} bytes]`)
-        } else {
-            console.log(`${key}:`, value)
-        }
-    }
-    
-    return formData
-}
-
-// 🔄 Fonction pour réinitialiser le formulaire
-const resetForm = () => {
-    // Reset des champs
-    prenom.value = ''
-    nom.value = ''
-    poste.value = ''
-    entreprise.value = ''
-    linkedin.value = ''
-    temoignage.value = ''
-    photo.value = null
-    photoPreview.value = null
-    
-    // Reset des erreurs
-    Object.keys(errors.value).forEach(key => {
-        errors.value[key] = ''
-    })
-    
-    // Reset des états
-    hasTriedSubmit.value = false
-    isSubmitted.value = false
-    submitError.value = ''
-    
-    // Reset de l'input file
-    const fileInput = document.querySelector('#photo-input')
-    if (fileInput) {
-        fileInput.value = ''
-    }
-    
-    console.log('🔄 Formulaire réinitialisé')
+    } 
 }
 
 </script>
@@ -338,52 +248,52 @@ const resetForm = () => {
             <div class="form__row__field">
                 <label class="form__row__field__label">Prénom *</label>
                 <input 
-                    v-model="prenom"
-                    @blur="hasTriedSubmit && validatePrenom()"
-                    @input="hasTriedSubmit && validatePrenom()"
+                    v-model="opinionsForm.firstName"
+                    @blur="validatePrenom()"
+                    @input="validatePrenom()"
                     placeholder="Votre prénom"
                     class="form__row__field__input" 
-                    :class="{ 'error': errors.prenom }"
+                    :class="{ 'error': errors.firstName }"
                 />
-                <p v-if="errors.prenom" class="form__row__field__error">{{ errors.prenom }}</p>
+                <p v-if="errors.firstName" class="form__row__field__error">{{ errors.firstName }}</p>
             </div>
             <div class="form__row__field">
                 <label class="form__row__field__label">Nom *</label>
                 <input 
-                    v-model="nom"
-                    @blur="hasTriedSubmit && validateNom()"
-                    @input="hasTriedSubmit && validateNom()"
+                    v-model="opinionsForm.lastName"
+                    @blur="validateNom()"
+                    @input="validateNom()"
                     placeholder="Votre nom"
                     class="form__row__field__input"
-                    :class="{ 'error': errors.nom }" 
+                    :class="{ 'error': errors.lastName }" 
                 />
-                <p v-if="errors.nom" class="form__row__field__error">{{ errors.nom }}</p>
+                <p v-if="errors.lastName" class="form__row__field__error">{{ errors.lastName }}</p>
             </div>
         </div>
         <div class="form__row">
             <div class="form__row__field">
                 <label class="form__row__field__label">Poste *</label>
                 <input 
-                    v-model="poste"
-                    @blur="hasTriedSubmit && validatePoste()"
-                    @input="hasTriedSubmit && validatePoste()"
+                    v-model="opinionsForm.job"
+                    @blur="validatePoste()"
+                    @input="validatePoste()"
                     placeholder="Votre poste"
                     class="form__row__field__input" 
-                    :class="{ 'error': errors.poste }"
+                    :class="{ 'error': errors.job }"
                 />
-                <p v-if="errors.poste" class="form__row__field__error">{{ errors.poste }}</p>
+                <p v-if="errors.job" class="form__row__field__error">{{ errors.job }}</p>
             </div>
             <div class="form__row__field">
                 <label class="form__row__field__label">Entreprise *</label>
                 <input 
-                    v-model="entreprise"
-                    @blur="hasTriedSubmit && validateEntreprise()"
-                    @input="hasTriedSubmit && validateEntreprise()"
+                    v-model="opinionsForm.company"
+                    @blur="validateEntreprise()"
+                    @input="validateEntreprise()"
                     placeholder="Votre entreprise"
                     class="form__row__field__input" 
-                    :class="{'error': errors.entreprise}"
+                    :class="{'error': errors.company}"
                 />
-                <p v-if="errors.entreprise" class="form__row__field__error">{{ errors.entreprise }}</p>
+                <p v-if="errors.company" class="form__row__field__error">{{ errors.company }}</p>
             </div>
         </div>
         <div class="form__row">
@@ -393,13 +303,13 @@ const resetForm = () => {
                     <span>Lien Linkedin (optionnel)</span>
                 </label>
                 <input 
-                    v-model="linkedin"
-                    @blur="hasTriedSubmit && validateLinkedin()"
-                    @input="hasTriedSubmit && validateLinkedin()"
+                    v-model="opinionsForm.link"
+                    @blur="validateLinkedin()"
+                    @input="validateLinkedin()"
                     type="url" 
                     placeholder="https://linkedin.com/in/votre-profil"
                     class="form__row__field__input"
-                    :class="{'error': errors.linkedin}"
+                    :class="{'error': errors.link}"
                 >
             </div>
             <div class="form__row__field">
@@ -417,14 +327,14 @@ const resetForm = () => {
                     class="form__row__field__customButton"
                 >
                     <SvgUpload class="form__row__field__customButton__icon"/>
-                    {{ photo ? photo.name : 'Choisir une photo' }}
+                    {{ opinionsForm.imgSrc ? opinionsForm.imgSrc.name : 'Choisir une photo' }}
                 </button>
                 <!-- 🖼️ Zone de prévisualisation -->
-                <div v-if="photoPreview" class="form__row__field__preview">
+                <div v-if="opinionsForm.photoPreview" class="form__row__field__preview">
                     <div class="form__row__field__preview__container">
-                        <img :src="photoPreview" alt="Aperçu" class="form__row__field__preview__container__image" />
+                        <img :src="opinionsForm.photoPreview" alt="Aperçu" class="form__row__field__preview__container__image" />
                         <div class="form__row__field__preview__container__overlay">
-                            <p class="form__row__field__preview__container__overlay__name">{{ photo.name }}</p>
+                            <p class="form__row__field__preview__container__overlay__name">{{ opinionsForm.imgSrc.name }}</p>
                             <ButtonsLittle 
                                 type="button"
                                 @click="removePhoto"
@@ -441,69 +351,18 @@ const resetForm = () => {
         <div class="form__message">
             <label for="" class="form__message__label">Votre témoignage</label>
             <textarea 
-                v-model="temoignage" 
-                @blur="hasTriedSubmit && validateTemoignage()"
-                @input="hasTriedSubmit && validateTemoignage()"
+                v-model="opinionsForm.opinion" 
+                @blur="validateTemoignage()"
+                @input="validateTemoignage()"
                 placeholder="Partagez votre expérience..."
                 class="form__message__text"
                 :class="{'error': errors.temoignage}"
                 rows="4"
             ></textarea>
-            <p v-if="errors.temoignage" class="form__message__error">{{ errors.temoignage }}</p>
+            <p v-if="errors.opinion" class="form__message__error">{{ errors.opinion }}</p>
         </div>
-        <!-- 📊 Indicateur de validation en temps réel -->
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0;">
-            <h3>🎯 État de validation :</h3>
-            <p>
-                <span :style="{ color: isFormValid ? 'green' : 'red' }">
-                    {{ isFormValid ? '✅ Formulaire valide' : '❌ Formulaire invalide' }}
-                </span>
-            </p>
-            <p><strong>Erreurs détectées :</strong></p>
-            <ul>
-                <li v-if="errors.prenom" style="color: red;">{{ errors.prenom }}</li>
-                <li v-if="errors.nom" style="color: red;">{{ errors.nom }}</li>
-                <li v-if="errors.poste" style="color: red;">{{ errors.poste }}</li>
-                <li v-if="errors.entreprise" style="color: red;">{{ errors.entreprise }}</li>
-                <li v-if="errors.linkedin" style="color: red;">{{ errors.linkedin }}</li>
-                <li v-if="errors.temoignage" style="color: red;">{{ errors.temoignage }}</li>
-                <li v-if="!Object.values(errors).some(error => error)" style="color: green;">
-                    Aucune erreur ! 🎉
-                </li>
-            </ul>
-        </div>
-        <!-- 🔍 Bouton pour voir les données en temps réel -->
-        <button 
-            type="button" 
-            @click="showData = !showData"
-            style="margin: 10px 0; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px;"
-        >
-            {{ showData ? 'Masquer' : 'Voir' }} les données
-        </button>
-        
-        <!-- 📊 Affichage des données pour comprendre la réactivité -->
-        <div v-if="showData" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0;">
-            <h3>📋 Données du formulaire en temps réel :</h3>
-            <p><strong>Prénom:</strong> {{ prenom || '(vide)' }}</p>
-            <p><strong>Nom:</strong> {{ nom || '(vide)' }}</p>
-            <p><strong>Poste:</strong> {{ poste || '(vide)' }}</p>
-            <p><strong>Entreprise:</strong> {{ entreprise || '(vide)' }}</p>
-            <p><strong>LinkedIn:</strong> {{ linkedin || '(vide)' }}</p>
-            <p><strong>Photo:</strong> {{ photo ? photo.name : '(aucune)' }}</p>
-            <p><strong>Témoignage:</strong> {{ temoignage || '(vide)' }}</p>
-        </div>
-        <ButtonsMain
-            type="submit"
-            @click="handleSubmit"
-            :disabled="isSubmitting || isSubmitted"
-        >
-            <span v-if="isSubmitting">⏳ Envoi en cours...</span>
-            <span v-else-if="isSubmitted">✅ Envoyé !</span>
-            <span v-else>{{ isFormValid ? 'Envoyer ✅' : 'Envoyer' }}</span>        
-        </ButtonsMain>
+        <ButtonsMain type="submit"><slot></slot></ButtonsMain>
     </form>
-    <p v-if="isSubmitted" class="succes">Merci de votre témoignage ! Il sera examiné avant publication sur le site.</p>
-    <p v-if="submitError" class="error">{{ submitError }}</p>
 </template>
 <style lang="scss" scoped>
 .form {
@@ -585,13 +444,5 @@ const resetForm = () => {
             @include font-p-message(red)
         }
     }
-}
-.succes {
-    @include font-p-message(green)
-}
-/* 🚨 Style pour les champs en erreur */
-.error {
-    border: 2px solid red !important;
-    background-color: #fff5f5 !important;
 }
 </style>

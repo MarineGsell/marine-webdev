@@ -17,36 +17,18 @@ const currentWorks = computed(() => {
     return works.value?.find(work => work.id === props.workId)
 })
 
-// Formulaire de modification
-const worksForm = reactive({
-    title: currentWorks.value?.title || '',
-    category: currentWorks.value?.category || '',
-    photo: currentWorks.value?.imgSrc || '',
-    photoPreview: currentWorks.value?.imgSrc || '',
-    imgAlt: currentWorks.value?.imgAlt || '',
-    repo: currentWorks.value?.repo || '',
-    link: currentWorks.value?.link || '',
-    description: currentWorks.value?.description || ''
-})
-
-
-async function patchWork() {
-    $fetch(`/api/competences/${props.workId}`, {
+// Modification du projet
+// Ajout de projet 
+const patchWork = async (worksForm) => {
+        $fetch(`/api/works/${props.workId}`, {
         method: 'PATCH',
         body: worksForm
     })
     .then(async () => {
         await refreshNuxtData()
         alert('Projet modifié avec succès')
-        worksForm.title = currentWorks.value?.title || ''
-        worksForm.category = currentWorks.value?.category || ''
-        worksForm.photo = currentWorks.value?.imgSrc || ''
-        worksForm.photoPreview = currentWorks.value?.imgSrc || ''
-        worksForm.imgAlt = currentWorks.value?.imgAlt || ''
-        worksForm.repo = currentWorks.value?.repo || ''
-        worksForm.link = currentWorks.value?.link || ''
-        worksForm.description = currentWorks.value?.description || ''
         handleClose()
+
     })
     .catch((e) => alert(e))
 }
@@ -57,39 +39,13 @@ async function patchWork() {
         <div class="modale__window">
             <div class="modale__window__button" @click="handleClose">X</div>
             <div class="modale__window__content">
-                <h3 class="modale__window__content__title">Modifier une compétence</h3>
-                <form class="modale__window__content__form">
-                    <div class="modale__window__content__form__column">
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Nom de la compétence</label>
-                            <input 
-                                type="text" 
-                                
-                                class="modale__window__content__form__column__field__input"
-                            >
-                        </div>
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Catégorie</label>
-                            <select class="modale__window__content__form__column__field__select" >
-                                <option value="Frontend">Frontend</option>
-                                <option value="Backend">Backend</option>
-                                <option value="Outils">Outils</option>
-                            </select>
-                        </div>
-                        <div class="modale__window__content__form__column__field">
-                            <label class="modale__window__content__form__column__field__label">Niveau</label>
-                            <input 
-                                type="number" 
-                                
-                                class="modale__window__content__form__column__field__input"
-                                min="1"
-                                max="5"
-                            >
-                        </div>
-                    </div>
-                    <ButtonsMain type="submit">Modifier la compétence</ButtonsMain>
-                </form>
-<p>{{ workId }}</p>
+                <h3 class="modale__window__content__title">Modifier un Projet</h3>
+                <DashboardWorksForm 
+                    :initialData="currentWorks"
+                    variant="modal"
+                    :clearAfterSubmit="false"
+                    @submit="patchWork"
+                >Modifier un projet</DashboardWorksForm>
             </div>
         </div>
     </div>

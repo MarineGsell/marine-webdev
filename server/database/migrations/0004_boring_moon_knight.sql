@@ -1,0 +1,1 @@
+ALTER TABLE `opinions` DROP COLUMN `imgAlt`;

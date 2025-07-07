@@ -1,15 +1,42 @@
 <script setup>
+const props = defineProps({
+    initialData: {
+        type: Object,
+        default: () => ({})
+    },
+    clearAfterSubmit: {
+        type: Boolean,
+        default: true
+    },
+    variant: {
+        type: String,
+        default: 'default',
+        validator: (value) => ['default', 'modal'].includes(value)
+    }
+})
 // 📥 Références réactives pour les champs du formulaire
 const worksForm = reactive({
-    title: '',
-    category: '',
-    imgSrc:'',
-    photoPreview: null,
-    imgAlt: '',
-    repo: '',
-    link: '',
-    description: ''
+    title: props.initialData.title || '',
+    category: props.initialData.category || '',
+    imgSrc: props.initialData.imgSrc || '',
+    photoPreview: props.initialData.imgSrc || null,
+    imgAlt: props.initialData.imgAlt || '',
+    repo: props.initialData.repo || '',
+    link: props.initialData.link || '',
+    description: props.initialData.description || ''
 })
+
+// Surveillance des changements pour le formulaire
+watch(() => props.initialData, (newData) => {
+    worksForm.title = newData?.title || ''
+    worksForm.category = newData?.category || ''
+    worksForm.imgSrc = newData?.imgSrc || ''
+    worksForm.photoPreview = newData?.imgSrc || null
+    worksForm.imgAlt = newData?.imgAlt || ''
+    worksForm.repo = newData?.repo || ''
+    worksForm.link = newData?.link || ''
+    worksForm.description = newData?.description || ''
+}, { immediate: true })
 
 // 🚨 Variables pour stocker les erreurs
 const errors = ref({
@@ -193,34 +220,32 @@ const triggerFileInput = () => {
 }
 
 
-// Ajout d'un projet
-async function addWork() {
-    if (!validateForm()) {
+// Soumission du formulaire
+const emit = defineEmits(['submit'])
+
+const handleSubmit = () => {
+   if (!validateForm()) {
         console.log('❌ Formulaire invalide')
         alert('Veuillez corriger les erreurs avant de continuer')
         return
-    }
-    $fetch('/api/works', {
-        method: 'POST',
-        body: worksForm
-    })
-    .then(async () => {
-        await refreshNuxtData()
-        alert('Projet ajoutée avec succès')
-        worksForm.title = ''
-        worksForm.category = ''
-        worksForm.imgSrc = ''
-        worksForm.photoPreview = null
-        worksForm.imgAlt = ''
-        worksForm.repo = ''
-        worksForm.link = ''
-        worksForm.description = ''
-    })
-    .catch((e) => alert(e))
+    } else {
+        emit('submit', worksForm)
+        if (props.clearAfterSubmit) {
+            worksForm.title = ''
+            worksForm.category = ''
+            worksForm.imgSrc = ''
+            worksForm.photoPreview = null
+            worksForm.imgAlt = ''
+            worksForm.repo = ''
+            worksForm.link = ''
+            worksForm.description = ''
+        }
+    } 
 }
+
 </script>
 <template>
-    <form class="form" @submit.prevent="addWork">
+    <form class="form" @submit.prevent="handleSubmit">
         <div class="form__row">
             <div class="form__row__field">
                 <label class="form__row__field__label">Titre du projet</label>
@@ -229,7 +254,10 @@ async function addWork() {
                 v-model="worksForm.title" 
                 @blur="validateTitle()"
                 @input="validateTitle()"
-                :class="{'error': errors.title}"
+                :class="{
+                    'error': errors.title,
+                    'form__row__field__input--modal': variant === 'modal'
+                }"
                 class="form__row__field__input"
                 >
                 <p v-if="errors.title" class="form__row__field__error">{{ errors.title }}</p>
@@ -240,7 +268,10 @@ async function addWork() {
                     v-model="worksForm.category" 
                     @blur="validateCategory()"
                     @input="validateCategory()"
-                    :class="{'error': errors.category}" 
+                    :class="{
+                        'error': errors.category,
+                        'form__row__field__select--modal': variant === 'modal'
+                    }" 
                     class="form__row__field__select"
                 >
                     <option value="">Choisi une option</option>
@@ -264,7 +295,10 @@ async function addWork() {
                 <button 
                     type="button" 
                     @click="triggerFileInput"
-                    class="form__row__field__customButton"
+                    :class="[
+                        'form__row__field__customButton',
+                        {'form__row__field__customButton--modal': variant === 'modal'}
+                    ]"
                 >
                     <SvgUpload class="form__row__field__customButton__icon"/>
                     {{ worksForm.imgSrc ? worksForm.imgSrc.name : 'Choisir une photo' }}
@@ -295,7 +329,10 @@ async function addWork() {
                     v-model="worksForm.imgAlt" 
                     @blur="validateImgAlt()"
                     @input="validateImgAlt()"
-                    :class="{'error': errors.imgAlt}"
+                    :class="{
+                        'error': errors.imgAlt,
+                        'form__row__field__input--modal': variant === 'modal'
+                    }"
                     class="form__row__field__input"
                 >
                 <p v-if="errors.imgAlt" class="form__row__field__error">{{ errors.imgAlt }}</p>
@@ -309,7 +346,10 @@ async function addWork() {
                     v-model="worksForm.repo" 
                     @blur="validateRepo()"
                     @input="validateRepo()"
-                    :class="{'error': errors.repo}"
+                    :class="{
+                        'error': errors.repo,
+                        'form__row__field__input--modal': variant === 'modal'
+                    }"
                     class="form__row__field__input"
                 >
                 <p v-if="errors.repo" class="form__row__field__error">{{ errors.repo }}</p>
@@ -321,7 +361,10 @@ async function addWork() {
                     v-model="worksForm.link" 
                     @blur="validateLink()"
                     @input="validateLink()"
-                    :class="{'error': errors.link}" 
+                    :class="{
+                        'error': errors.link,
+                        'form__row__field__input--modal': variant === 'modal'
+                    }" 
                     class="form__row__field__input"
                 >
                 <p v-if="errors.link" class="form__row__field__error">{{ errors.link }}</p>
@@ -333,17 +376,20 @@ async function addWork() {
                 v-model="worksForm.description" 
                 @blur="validateDescription()"
                 @input="validateDescription()"
-                :class="{'error': errors.description}"
+                :class="{
+                    'error': errors.description,
+                    'form__description__textarea--modal': variant === 'modal'
+                }"
                 class="form__description__textarea"
             ></textarea>
             <p v-if="errors.description" class="form__description__error">{{ errors.description }}</p>
         </div>    
-        <ButtonsMain type="submit">Ajouter un Projet</ButtonsMain>
+        <ButtonsMain type="submit"><slot></slot></ButtonsMain>
     </form>
 </template>
 <style lang="scss" scoped>
 .form {
-    width: 70%;
+    width: 100%;
     margin: auto;
     @include flex(column, center, center, $gap-third-desktop); 
     &__row {
@@ -358,10 +404,16 @@ async function addWork() {
             &__input {
                 width: 100%;
                 @include input($white);
+                &--modal {
+                    @include input($bg-color);
+                }
             }   
             &__select {
                 width: 100%;
                 @include input($white);
+                &--modal {
+                    @include input($bg-color);
+                }
             }
             &__inputFile {
                 display: none;
@@ -371,6 +423,9 @@ async function addWork() {
                 @include input($white);
                 @include flex(row, center, center, 8px);
                 @include font-p-little;
+                &--modal {
+                    @include input($bg-color);
+                }
                 &__icon {
                     height: 24px;
                 }
@@ -409,6 +464,9 @@ async function addWork() {
         &__textarea {
             width: 100%;
             @include input($white);
+            &--modal {
+                @include input($bg-color);
+            }
         } 
         &__error {
             width: 100%;

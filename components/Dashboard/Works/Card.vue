@@ -30,13 +30,9 @@ const props = defineProps({
         type: Boolean,
         default: false
     }, 
-    idCard: {
-        type: [String, Number],
-        default: null
-    }
 })
 
-const emit = defineEmits(['open, delete'])
+const emit = defineEmits(['open', 'delete'])
 const handleOpen = () => {
     emit('open')
 }
@@ -74,7 +70,6 @@ const handleDelete = () => {
             <ButtonsLittle @click="handleOpen">Modifier</ButtonsLittle>
             <ButtonsLittle @click="handleDelete">Supprimer</ButtonsLittle>
         </div>
-        {{ idCard }}
     </div>
 </template>
 <style lang="scss" scoped>

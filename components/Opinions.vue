@@ -1,5 +1,5 @@
 <script setup>
-const { data: opinions } = await useFetch('/api/opinions')
+const { data: opinions } = await useFetch('/api/opinions?isValidated=true', {key: 'opinions'})
 
 // Modale
 const modale = ref(false)
@@ -19,15 +19,18 @@ const closeModale = () => {
                     v-for="opinion in opinions"
                     class="opinion__content__cards__card"
                     :key="opinion.id"
-                    :name="opinion.name"
+                    :firstName="opinion.firstName"
+                    :lastName="opinion.lastName"
                     :job="opinion.job"
+                    :company="opinion.company"
                     :to="opinion.link"
                     :opinion="opinion.opinion"
+                    :opinionId="opinion.id"
                 >
                     <NuxtImg 
-                        v-if="opinion.src" 
-                        :src="opinion.src" 
-                        :alt="opinion.alt" 
+                        v-if="opinion.imgSrc" 
+                        :src="opinion.imgSrc" 
+                        :alt="`Photo de ${opinion.firstName} ${opinion.lastName}`" 
                         class="opinion__content__cards__card__picture" 
                     />
                 </CardOpinion>
